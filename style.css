@@ -1,0 +1,62 @@
+:root
+{
+  --navWidth: 10px;
+  --navHeight: 10px;
+  --panelHeight: 10px;
+  --stdFontSize: 12px;
+  --lgFontSize: 20px;
+}
+
+body
+{
+  background-color:dimgray;
+  font-family: 'Syncopate';
+  font-size: var(--stdFontSize);
+}
+
+.navBar
+{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: var(--navWidth);
+  height: var(--navHeight);
+  background-color: black;
+}
+
+.navHighlight {
+  transition: all 0.2s cubic-bezier(0.18, -0.08, 0.81, 1.13);
+  border-bottom: 2px solid blueviolet;
+  position: absolute;
+  top: 0px;
+  background: blueviolet;
+  left: 0;
+  z-index: -1;
+  border-radius: 20px;
+  display: block;
+  box-shadow: 0 0 10px rgba(255,255,255,0.4);
+}
+
+.navButton
+{
+  position: absolute;
+  background-color: transparent;
+  color: white;
+}
+
+.panel
+{
+  position: fixed;
+  top: var(--navHeight);
+  left: 0px;
+  width: var(--navWidth);
+  height: var(--panelHeight);
+  background-color: black;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
