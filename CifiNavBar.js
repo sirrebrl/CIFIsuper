@@ -186,9 +186,12 @@ function reDim()
         navButtons[i].elem.style.left = `${thisLeft}px`;
     }
 
-    if (panelResizeFunction === null) { openDefaultPanel(); }
+    // if (panelResizeFunction === null) { openDefaultPanel(); }
 
-    if (panelResizeFunction) panelResizeFunction(navDim.width, window.innerHeight - navDim.height);
+    // if (panelResizeFunction) panelResizeFunction(navDim.width, window.innerHeight - navDim.height);
+
+    destroyPortal();
+    openDefaultPanel();
 
     deHighlight();
 }
