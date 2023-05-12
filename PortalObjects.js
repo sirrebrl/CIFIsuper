@@ -963,6 +963,9 @@ function recalculate(e)
     {
         academyDataLinkage[e.target.id] = e.target.checked;
         SavePlayerData();
+        
+        PopulateTiming();
+        
         return;
     }
 
