@@ -17,7 +17,7 @@ function CalculateFarmTimes(getRawTime = false)
             population += playerData.academy.farms[planet][farm].corvettes;
 
             power *= (playerData.academy.badges.engineering + 1);
-            power *= Math.pow(1.05, Math.floor(playerData.research.missionAnalysis3 + 1) / 2);
+            power *= Math.pow(1.05, Math.floor((playerData.research.missionAnalysis3 + 1) / 2));
             power *= Math.pow(1.03, playerData.loopMods.swarm);
             console.log(power);
 
