@@ -51,13 +51,14 @@ const blankPlayer =
         materialHauling: 0, // Mission Materials *= pow(1.05, [Material Hauling])
         beyonders: 0, // [AP Gained, Mission Materials] *= pow(1.01, [Beyonders])
         destruction: 0, // AP Gained *= pow(3, [Destruction])
-        swarm: 0, // Mission Materials *= pow(1.25, [Swarm])
+        swarm: 0, // Mission Materials *= pow(1.25, [Swarm]), Mission Time /= pow(1.03, [Swarm])
         expansion: 0 // Mission Materials *= pow(1.01, [Expansion])
     },
     research:
     {
-        MissionAnalysis1: 0, // Mission Materials *= pow(1.5, floor([Mission Analysis 1] / 2))
-        MissionAnalysis2: 0 // Mission Materials *= pow(1.75, floor([Mission Analysis 2] / 2))
+        missionAnalysis1: 0, // Mission Materials *= pow(1.5, floor([Mission Analysis 1] / 2))
+        missionAnalysis2: 0, // Mission Materials *= pow(1.75, floor([Mission Analysis 2] / 2))
+        missionAnalysis3: 0 // Mission Time /= pow(1.05, floor(([Mission Analysis 3] + 1) / 2))
     },
     academy:
     {
@@ -80,6 +81,70 @@ const blankPlayer =
                 population: 0
             }
         ],
+        farms:
+        [
+            [ // Planet 1
+                { // Farm 1-1
+                    pods: 0,
+                    fireteams: 0,
+                    titans: 0,
+                    corvettes: 0
+                },
+                { // Farm 1-2
+                    pods: 0,
+                    fireteams: 0,
+                    titans: 0,
+                    corvettes: 0
+                },
+                { // Farm 1-3
+                    pods: 0,
+                    fireteams: 0,
+                    titans: 0,
+                    corvettes: 0
+                }
+            ],
+            [ // Planet 2
+                { // Farm 2-1
+                    pods: 0,
+                    fireteams: 0,
+                    titans: 0,
+                    corvettes: 0
+                },
+                { // Farm 2-2
+                    pods: 0,
+                    fireteams: 0,
+                    titans: 0,
+                    corvettes: 0
+                },
+                { // Farm 2-3
+                    pods: 0,
+                    fireteams: 0,
+                    titans: 0,
+                    corvettes: 0
+                }
+            ],
+            [ // Planet 3
+                { // Farm 3-1
+                    pods: 0,
+                    fireteams: 0,
+                    titans: 0,
+                    corvettes: 0
+                },
+                { // Farm 3-2
+                    pods: 0,
+                    fireteams: 0,
+                    titans: 0,
+                    corvettes: 0
+                },
+                { // Farm 3-3
+                    pods: 0,
+                    fireteams: 0,
+                    titans: 0,
+                    corvettes: 0
+                }
+            ]
+        ],
+        stock: [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         exchanges:
         {
             techSamples: 0,
@@ -113,12 +178,12 @@ const blankPlayer =
         ],
         badges:
         {
-            Workers: false,
-            Innovation: false,
-            Tinkering: false,
-            Loopers: false,
-            Efficiency: false,
-            Engineering: false
+            workers: false,
+            innovation: false,
+            tinkering: false,
+            loopers: false,
+            efficiency: false,
+            engineering: false
         }
     }
 };
@@ -128,12 +193,12 @@ let playerData = JSON.parse(localStorage.getItem('CifiSuperSave')) || blankPlaye
 
 function SavePlayerData()
 {
-    localStorage.setItem('CIFIplayerdata', JSON.stringify(playerData));
+    localStorage.setItem('CifiSuperSave', JSON.stringify(playerData));
 }
 
 function LoadPlayerData()
 {
-    playerData = JSON.parse(localStorage.getItem('CIFIplayerdata'))
+    playerData = JSON.parse(localStorage.getItem('CifiSuperSave'))
 }
 
 // Add new properties to player data object upon opening newer version of Super Assistant
