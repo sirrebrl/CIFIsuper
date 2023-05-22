@@ -712,8 +712,8 @@ function maximizeMissionRate()
         }
     }
 
-    PopulateTiming();
     populateYield();
+    PopulateTiming();
 }
 
 function populateYield()
@@ -721,65 +721,58 @@ function populateYield()
     let yieldData = CalculateFarmYields();
     let rateData =
     {
-        missionRate: Math.round(yieldData.missionYield / playerData.academy.farmYieldSetting.duration * 100) / 100,
+        missionRate: yieldData.missionYield / playerData.academy.farmYieldSetting.duration,
         apRate: yieldData.apYield / playerData.academy.farmYieldSetting.duration,
         matRate: yieldData.matYield.map(yieldValue => {
             let rateValue = yieldValue / playerData.academy.farmYieldSetting.duration;
-            if (Math.log10(rateValue) > 2)
+            if (rateValue >= 1000)
             {
-                let exp = Math.floor(Math.log10(rateValue));
-                rateValue /= Math.pow(10, exp);
-                rateValue = Math.floor(rateValue * 100) / 100;
-                return `${rateValue}e+${exp}`;
+                rateValue = rateValue.toExponential(2);
             }
-            rateValue = Math.floor(rateValue * 100) / 100;
+            else
+            {
+                rateValue = rateValue.toFixed(2);
+            }
             return rateValue;
         })
     };
-    if (Math.log10(yieldData.missionYield) > 2)
+    if (rateData.missionRate >= 1000)
     {
-        let value = yieldData.missionYield
-        let exp = Math.floor(Math.log10(value));
-        value /= Math.pow(10, exp);
-        value = Math.floor(value * 100) / 100;
-        yieldData.missionYield = `${value}e+${exp}`;
-    };
-    if (Math.log10(yieldData.apYield) > 2)
-    {
-        let value = yieldData.apYield
-        let exp = Math.floor(Math.log10(value));
-        value /= Math.pow(10, exp);
-        value = Math.floor(value * 100) / 100;
-        yieldData.apYield = `${value}e+${exp}`;
-        console.log(yieldData.apYield)
+        rateData.missionRate = rateData.missionRate.toExponential(2);
     }
     else
     {
-        yieldData.apYield = Math.floor(yieldData.apYield * 100) / 100;
-    };
-    if (Math.log10(rateData.apRate) > 2)
+        rateData.missionRate = rateData.missionRate.toFixed(2);
+    }
+    if (yieldData.missionYield >= 1000)
     {
-        let value = rateData.apRate
-        let exp = Math.floor(Math.log10(value));
-        value /= Math.pow(10, exp);
-        let intPart = Math.floor(value);
-        let decPart = Math.floor((value - intPart) * 100);
-        rateData.apRate = `${intPart}.${decPart}e+${exp}`;
-        console.log(rateData.apRate);
+        yieldData.missionYield = yieldData.missionYield.toExponential(2);
+    }
+    if (yieldData.apYield >= 1000)
+    {
+        yieldData.apYield = yieldData.apYield.toExponential(2);
     }
     else
     {
-        rateData.apRate = Math.floor(rateData.apRate * 100) / 100;
-    };
+        yieldData.apYield = yieldData.apYield.toFixed(2);
+    }
+    if (rateData.apRate >= 1000)
+    {
+        rateData.apRate = rateData.apRate.toExponential(2);
+    }
+    else
+    {
+        rateData.apRate = rateData.apRate.toFixed(2);
+    }
     yieldData.matYield = yieldData.matYield.map(yieldValue => {
-        if (Math.log10(yieldValue) > 2)
+        if (yieldValue > 1000)
         {
-            let exp = Math.floor(Math.log10(yieldValue));
-            yieldValue /= Math.pow(10, exp);
-            yieldValue = Math.floor(yieldValue * 100) / 100;
-            return `${yieldValue}e+${exp}`;
+            yieldValue = yieldValue.toExponential(2)
         }
-        yieldValue = Math.floor(yieldValue * 100) / 100;
+        else 
+        { 
+            yieldValue = yieldValue.toFixed(2);
+        }
         return yieldValue;
     });
 
