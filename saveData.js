@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 1, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 2, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     level: 0, // Player level
     timing:
     {
@@ -25,6 +25,7 @@ const blankPlayer =
         zeus:
         {
             rank: {current: 0, progress: 0, goal: 1},
+            freePoints: 0,
             crew: 0,
             installs: 
             [
@@ -52,13 +53,56 @@ const blankPlayer =
         beyonders: 0, // [AP Gained, Mission Materials] *= pow(1.01, [Beyonders])
         destruction: 0, // AP Gained *= pow(3, [Destruction])
         swarm: 0, // Mission Materials *= pow(1.25, [Swarm]), Mission Time /= pow(1.03, [Swarm])
-        expansion: 0 // Mission Materials *= pow(1.01, [Expansion])
+        expansion: 0, // Mission Materials *= pow(1.01, [Expansion])
+        exodus: 0, // Exodus Exchange Output *= pow(1.25, level)
+        allExchange: 0, // All Exchanges Output *= pow(1.5, level)
     },
+    shardMilestones:
+    [
+        0, // (01) Alpha
+        0, // (02) Aquarius
+        0, // (03) Libra
+        0, // (04) Modifying
+        0, // (05) Flowering
+        0, // (06) Connecting
+        0, // (07) Duality
+        0, // (08) Morphing
+        0, // (09) Producing
+        0, // (10) Expanding
+        0, // (11) Triangular
+        0, // (12) Extracting
+        0, // (13) Seeding
+        0, // (14) Pathing
+        0, // (15) Ritualistic
+        0, // (16) Modulistic
+        0, // (17) Machining
+        0, // (18) Studying
+        0, // (19) Lucky
+        0, // (20) Duplicating
+        0, // (21) Targeting
+        0, // (22) Quadratic
+        0, // (23) Layering
+        0, // (24) Torn
+        0, // (25) Duplicating
+        0 // (26) Wonderous
+    ],
     research:
     {
-        missionAnalysis1: 0, // Mission Materials *= pow(1.5, floor([Mission Analysis 1] / 2))
-        missionAnalysis2: 0, // Mission Materials *= pow(1.75, floor([Mission Analysis 2] / 2))
-        missionAnalysis3: 0 // Mission Time /= pow(1.05, floor(([Mission Analysis 3] + 1) / 2))
+        mission:
+        [
+            0, // (1) [AP = (level > 2 ? 1.3 : 1) * (level > 4 ? 1.3 : 1), Materials = pow(1.5, floor(level / 2))]
+            0, // (2) [AP = (level > 2 ? 1.5 : 1) * (level > 4 ? 1.5 : 1), Materials = pow(1.75, floor(level / 2))]
+            0, // (3) [Mission Speed = pow(1.05, floor((level + 1) / 2)) || BUGGED = pow(1.05, floor((level + 1) / 2)) / (0.05 * (level === 6) + 1)]
+            0, // (4) [AP = (level > 2 ? 2 : 1) * (level > 4 ? 3 : 1), Materials = (level > 1 ? 2 : 1) * (level > 3 ? 3 : 1) * (level > 5 ? 4 : 1)]
+            0 //  (5) [AP = (level > 2 ? 3 : 1) * (level > 4 ? 4 : 1), Materials = (level > 1 ? 3 : 1) * (level > 3 ? 4 : 1) * (level > 5 ? 5 : 1)]
+        ],
+        perfection:
+        [
+            0, // (1) [AP = level > 3 ? 10 : 1]
+            0, // (2) [AP = level > 3 ? 10 : 1, Materials = 4 * (level > 1) + 1]
+            0, // (3) [AP = level > 3 ? 50 : 1, Materials = 4 * (level > 1) + 1, Mission Speed = (level > 4) + 1]
+            0 // (4) [AP = level > 3 ? 99 : 1, Materials = 8 * (level > 1) + 1, Mission Speed = (level > 4) + 1]
+        ]
     },
     academy:
     {
@@ -144,6 +188,8 @@ const blankPlayer =
                 }
             ]
         ],
+        farmYieldSetting: { type: 0, duration: 0 },
+        ap: 0,
         stock: [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         exchanges:
         {
@@ -176,6 +222,7 @@ const blankPlayer =
             false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, // 13-27
             false, false, false, false, false, false // 28-33
         ],
+        cmAP: 1,
         badges:
         {
             workers: false,
@@ -204,7 +251,36 @@ function LoadPlayerData()
 // Add new properties to player data object upon opening newer version of Super Assistant
 function UpdatePlayerData()
 {
+    if (playerData.version < 2)
+    {
+        playerData.fleet.zeus.freePoints = 0;
+        playerData.loopMods.exodus = 0;
+        playerData.loopMods.allExchange = 0;
+        playerData.shardMilestones = blankPlayer.shardMilestones;
 
+        let newResearch = blankPlayer.research;
+        newResearch.mission[0] = playerData.research.missionAnalysis1 || 0;
+        newResearch.mission[1] = playerData.research.missionAnalysis2 || 0;
+        newResearch.mission[2] = playerData.research.missionAnalysis3 || 0;
+        playerData.research = newResearch;
+
+        playerData.academy.cmAP = 1;
+
+        playerData.academy.gearSets =
+        [
+            playerData.academy.gearLevels[0] + playerData.academy.gearLevels[1] + playerData.academy.gearLevels[2],
+            playerData.academy.gearLevels[3] + playerData.academy.gearLevels[4] + playerData.academy.gearLevels[5] + playerData.academy.gearLevels[6],
+            playerData.academy.gearLevels[7] + playerData.academy.gearLevels[8] + playerData.academy.gearLevels[9] + playerData.academy.gearLevels[10] + playerData.academy.gearLevels[11],
+            playerData.academy.gearLevels[12] + playerData.academy.gearLevels[13] + playerData.academy.gearLevels[14] + playerData.academy.gearLevels[15] + playerData.academy.gearLevels[16],
+            playerData.academy.gearLevels[17] + playerData.academy.gearLevels[18] + playerData.academy.gearLevels[19] + playerData.academy.gearLevels[20] + playerData.academy.gearLevels[21],
+        ];
+
+        playerData.academy.farmYieldSetting = { type: 0, duration: 0 };
+
+        playerData.academy.ap = 0;
+
+        playerData.version = 2;
+    }
     SavePlayerData();
 }
 
