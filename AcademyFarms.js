@@ -713,6 +713,7 @@ function maximizeMissionRate()
     }
 
     PopulateTiming();
+    populateYield();
 }
 
 function populateYield()
