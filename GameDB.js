@@ -1,5 +1,12 @@
 let GameDB =
 {
+    bugs:
+    {
+        destruction: true,
+        wonderous: true,
+        swarm: true,
+        mission3: true
+    },
     academy:
     {
         personnel:
@@ -13,6 +20,7 @@ let GameDB =
                 id: 11,
                 baseTime: 30,
                 maxPop: 20,
+                baseAP: 1,
                 baseMats: // Difar
                 [
                     38, 0, 0, 0, 0, 0, 0, 0
@@ -22,6 +30,7 @@ let GameDB =
                 id: 12,
                 baseTime: 360,
                 maxPop: 60,
+                baseAP: 1,
                 baseMats: // Kento
                 [
                     0, 320, 0, 0, 0, 0, 0, 0
@@ -31,6 +40,7 @@ let GameDB =
                 id: 13,
                 baseTime: 2400,
                 maxPop: 100,
+                baseAP: 1,
                 baseMats: // Difar, Kento, Chromium
                 [
                     1350, 280, 760, 0, 0, 0, 0, 0
@@ -40,6 +50,7 @@ let GameDB =
                 id: 21,
                 baseTime: 150,
                 maxPop: 80,
+                baseAP: 1,
                 baseMats: // Exon
                 [
                     0, 0, 0, 20, 0, 0, 0, 0
@@ -49,6 +60,7 @@ let GameDB =
                 id: 22,
                 baseTime: 2400,
                 maxPop: 160,
+                baseAP: 1,
                 baseMats: // Chromium, Organium
                 [
                     0, 0, 560, 0, 80, 0, 0, 0
@@ -58,6 +70,7 @@ let GameDB =
                 id: 23,
                 baseTime: 72000,
                 maxPop: 500,
+                baseAP: 1,
                 baseMats: // Exon, Organium, Adamorphium
                 [
                     0, 0, 0, 2200, 320, 260, 0, 0
@@ -67,6 +80,7 @@ let GameDB =
                 id: 31,
                 baseTime: 3000,
                 maxPop: 150,
+                baseAP: 1,
                 baseMats: // Moskom
                 [
                     0, 0, 0, 0, 0, 0, 19, 0
@@ -76,6 +90,7 @@ let GameDB =
                 id: 32,
                 baseTime: 975000,
                 maxPop: 2000,
+                baseAP: 1,
                 baseMats: // Darkseid
                 [
                     0, 0, 0, 0, 0, 0, 0, 80
@@ -85,6 +100,7 @@ let GameDB =
                 id: 33,
                 baseTime: 1875000,
                 maxPop: 4000,
+                baseAP: 1,
                 baseMats: // Organium, Adamorphium, Moskom, Darkseid
                 [
                     0, 0, 0, 0, 5200, 2440, 3980, 160
@@ -163,3 +179,81 @@ let GameDB =
     }
 };
 
+function parseBigNum(value)
+{
+    // k, m, b, t, qa, qu, sx, sp, o, n, d
+    value = value.toLowerCase();
+    if (value.includes('k'))
+    {
+        value = parseFloat(value.slice(0, -1));
+        if (isNaN(value)) return value;
+        value *= 1e3;
+    }
+    else if (value.includes('m'))
+    {
+        value = parseFloat(value.slice(0, -1));
+        if (isNaN(value)) return value;
+        value *= 1e6;
+    }
+    else if (value.includes('b'))
+    {
+        value = parseFloat(value.slice(0, -1));
+        if (isNaN(value)) return value;
+        value *= 1e9;
+    }
+    else if (value.includes('t'))
+    {
+        value = parseFloat(value.slice(0, -1));
+        if (isNaN(value)) return value;
+        value *= 1e12;
+    }
+    else if (value.includes('qa'))
+    {
+        value = parseFloat(value.slice(0, -2));
+        if (isNaN(value)) return value;
+        value *= 1e15;
+    }
+    else if (value.includes('qu'))
+    {
+        value = parseFloat(value.slice(0, -2));
+        if (isNaN(value)) return value;
+        value *= 1e18;
+    }
+    else if (value.includes('sx'))
+    {
+        value = parseFloat(value.slice(0, -2));
+        if (isNaN(value)) return value;
+        value *= 1e21;
+    }
+    else if (value.includes('sp'))
+    {
+        value = parseFloat(value.slice(0, -2));
+        if (isNaN(value)) return value;
+        value *= 1e24;
+    }
+    else if (value.includes('o'))
+    {
+        value = parseFloat(value.slice(0, -1));
+        if (isNaN(value)) return value;
+        value *= 1e27;
+    }
+    else if (value.includes('n'))
+    {
+        value = parseFloat(value.slice(0, -1));
+        if (isNaN(value)) return value;
+        value *= 1e30;
+    }
+    else if (value.includes('d'))
+    {
+        value = parseFloat(value.slice(0, -1));
+        if (isNaN(value)) return value;
+        value *= 1e33;
+    }
+    else
+    {
+        value = parseFloat(value);
+        if (isNaN(value)) return value;
+    }
+    
+    return value;
+}
