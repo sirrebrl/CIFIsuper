@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 3, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 4, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     level: 0, // Player level
     timing:
     {
@@ -216,6 +216,7 @@ const blankPlayer =
             0, 0, 0, 0, 0, // Green
             0, 0, 0, 0, 0 // Blue
         ],
+        gearSets: [0, 0, 0, 0, 0],
         constructionMilestones:
         [
             false, false, false, false, false, false, false, false, false, false, false, false, // 1-12
@@ -251,7 +252,7 @@ function LoadPlayerData()
 // Add new properties to player data object upon opening newer version of Super Assistant
 function UpdatePlayerData()
 {
-    if (playerData.version < 3)
+    if (playerData.version < 4)
     {
         playerData = blankPlayer;
     }
