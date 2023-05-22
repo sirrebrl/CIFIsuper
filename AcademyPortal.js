@@ -184,7 +184,7 @@ function CalculateFarmYields(giveTotal = false)
     }
 
     let staticAPbonus = Math.pow(1.01, playerData.loopMods.beyonders);
-    staticAPbonus *= (GameDB.bugs.destruction ? (3 * playerData.loopMods.destruction) : Math.pow(3, playerData.loopMods.destruction));
+    staticAPbonus *= (GameDB.bugs.destruction ? (3 * playerData.loopMods.destruction + (playerData.loopMods.destruction === 0)) : Math.pow(3, playerData.loopMods.destruction));
     staticAPbonus *= Math.pow(1.1, playerData.loopMods.combatMod);
     staticAPbonus *= Math.pow(0.005 * playerData.loopMods.zeusCrewMotivation + 1, playerData.fleet.zeus.crew);
     staticAPbonus *= (0.1 * playerData.fleet.zeus.installs[1] * playerData.fleet.zeus.crew + 1);
