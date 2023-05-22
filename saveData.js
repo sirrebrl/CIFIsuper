@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 6, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 7, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     level: 0, // Player level
     timing:
     {
@@ -130,6 +130,7 @@ const blankPlayer =
                 population: 0
             }
         ],
+        campaignsComplete: 0,
         farms:
         [
             [ // Planet 1
@@ -296,6 +297,11 @@ function UpdatePlayerData()
             }
         };
         playerData.version = 6;
+    }
+    if (playerData.version < 7)
+    {
+        playerData.academy.campaignsComplete = 0;
+        playerData.version = 7;
     }
     SavePlayerData();
 }
