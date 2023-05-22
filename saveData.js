@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 5, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 6, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     level: 0, // Player level
     timing:
     {
@@ -242,6 +242,17 @@ const blankPlayer =
             efficiency: false,
             engineering: false
         }
+    },
+    diamonds:
+    {
+        special:
+        {
+            ap: 0
+        },
+        cards:
+        {
+            nora: false, omega: false, rigel: false, utopia: false, zion: false
+        }
     }
 };
 
@@ -270,6 +281,21 @@ function UpdatePlayerData()
         playerData.academy.projectGoals = [0, 0, 0, 0, 0, 0];
         playerData.research.construction = [0, 0];
         playerData.version = 5;
+    }
+    if (playerData.version < 6)
+    {
+        playerData.diamonds =
+        {
+            special:
+            {
+                ap: 0
+            },
+            cards:
+            {
+                nora: false, omega: false, rigel: false, utopia: false, zion: false
+            }
+        };
+        playerData.version = 6;
     }
     SavePlayerData();
 }
