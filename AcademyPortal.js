@@ -79,7 +79,7 @@ function GetMaxMissionRate()
     missionSpeedBonus *= (playerData.research.perfection[2] > 4) + 1;
     missionSpeedBonus *= (playerData.research.perfection[3] > 4) + 1;
     missionSpeedBonus *= playerData.academy.badges.engineering + 1;
-    
+
     let personnel = 
     [
         {
@@ -135,7 +135,7 @@ function GetMaxMissionRate()
                     power: 0,
                     baseTime: farm.baseTime / missionSpeedBonus,
                     get availSpace() { return this.maxPop - this.currentPop; },
-                    get timeLimitPassed() { return !((this.power === 0) || (this.baseTime * 60 / this.power >= 2)); }
+                    get timeLimitPassed() { return !((this.power === 0) || ((this.baseTime * 60 / this.power) >= 2)); }
                 }
 
                 for (let personnelNum = 0; personnelNum < 4; personnelNum++)
@@ -150,14 +150,14 @@ function GetMaxMissionRate()
                     {
                         farmSpecs.currentPop--;
                         farmSpecs.power -= personnel[personnelNum].power;
-                        
+
                         if (!farmSpecs.timeLimitPassed && personnelNum === 3)
                         {
                             farmSpecs.currentPop++;
                             farmSpecs.power += personnel[personnelNum].power;
                             break;
                         }
-                        
+
                         personnel[personnelNum].usedPop--;
                         playerData.academy.farms[planet - 1][farmNum - 1][GameDB.academy.personnel[3-personnelNum]]--;
                     }
@@ -170,7 +170,7 @@ function GetMaxMissionRate()
     SavePlayerData();
 }
 
-function CalculateFarmYields()
+function CalculateFarmYields(giveTotal = false)
 {
     let durationSetting = playerData.academy.farmYieldSetting;
     let duration = durationSetting.duration * 60;
@@ -182,8 +182,6 @@ function CalculateFarmYields()
     {
         duration *= 24
     }
-
-    console.log('duration: ' + duration);
 
     let staticAPbonus = Math.pow(1.01, playerData.loopMods.beyonders);
     staticAPbonus *= (GameDB.bugs.destruction ? (3 * playerData.loopMods.destruction) : Math.pow(3, playerData.loopMods.destruction));
@@ -262,10 +260,13 @@ function CalculateFarmYields()
     }
 
     let missionYield = 0;
-    // let apYield = playerData.academy.ap;
-    // let matYield = [...playerData.academy.stock];
     let apYield = 0;
     let matYield = [0, 0, 0, 0, 0, 0, 0, 0];
+    if (giveTotal)
+    {
+        apYield = playerData.academy.ap;
+        matYield = [...playerData.academy.stock];
+    }
     let rankProgress = playerData.fleet.zeus.rank.progress;
     let yieldRank = playerData.fleet.zeus.rank.current;
 
@@ -310,4 +311,117 @@ function CalculateFarmYields()
     }
 
     return {missionYield, apYield, matYield};
+}
+
+class StoreHouse
+{
+  constructor(totalMats)
+  {
+    this.mats = [];
+    this.spent = [];
+    for (let i = 0; i < totalMats.length; i++)
+    {
+      this.mats.push(totalMats[i]);
+      this.spent.push(0);
+    }
+  }
+}
+
+class ProjectConfig
+{
+  get gainedLevels()
+  {
+    return this.currentLevel - this.startLevel;
+  }
+
+  constructor(_projectID, _currentLevel)
+  {
+    this.projectID = _projectID
+    this.startLevel = _currentLevel;
+    this.currentLevel = _currentLevel;
+    this.testLevel = _currentLevel;
+  }
+
+  MaxLevel(storeHouse)
+  {
+    this.testLevel = this.currentLevel;
+
+
+    let costDiv = 1;
+    if (GameDB.bugs.construction)
+    {
+        costDiv = (playerData.research.construction[0] > 1 ? 1.5 : 1) * (playerData.research.construction[0] > 5 ? 2 : 1) * (playerData.research.construction[0] > 5 ? 2.5 : 1);
+        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 5 ? 3 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);
+    }
+    else
+    {
+        costDiv = (playerData.research.construction[0] > 1 ? 1.5 : 1) * (playerData.research.construction[0] > 3 ? 2 : 1) * (playerData.research.construction[0] > 5 ? 2.5 : 1);
+        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 3 ? 3 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);    
+    }
+
+    let accumCosts = [0, 0, 0, 0, 0, 0, 0, 0];
+    while (true)
+    {
+      let searchEnd = false;
+      let nextCosts = GameDB.academy.projectNextLevelCost(this.projectID, this.testLevel, costDiv);
+    //   if (this.testLevel === this.startLevel)
+    //   {
+    //     console.log(`Project: ${this.projectID}, Level: ${this.testLevel}`);
+    //     console.table(nextCosts);
+    //   }
+
+      for (let i = 0; i < storeHouse.mats.length; i++)
+      {
+        if ((storeHouse.mats[i] - storeHouse.spent[i]) < (accumCosts[i] + nextCosts[i])) { searchEnd = true; break; }
+      }
+
+      if (searchEnd) break;
+
+      for (let i = 0; i < storeHouse.mats.length; i++)
+      {
+        accumCosts[i] += nextCosts[i];
+      }
+      this.testLevel++;
+
+      console.count(`Project: ${this.projectID}`);
+    }
+
+    let result =
+    {
+      newLevels: this.testLevel - this.currentLevel,
+      costs: accumCosts
+    }
+
+    console.log(result);
+
+    return result;
+  }
+
+  get currentCost()
+  {
+    let costDiv = 1;
+    if (GameDB.bugs.construction)
+    {
+        costDiv = (playerData.research.construction[0] > 1 ? 1.5 : 1) * (playerData.research.construction[0] > 5 ? 2 : 1) * (playerData.research.construction[0] > 5 ? 2.5 : 1);
+        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 5 ? 3 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);
+    }
+    else
+    {
+        costDiv = (playerData.research.construction[0] > 1 ? 1.5 : 1) * (playerData.research.construction[0] > 3 ? 2 : 1) * (playerData.research.construction[0] > 5 ? 2.5 : 1);
+        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 3 ? 3 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);    
+    }
+
+    let accumCosts = [0, 0, 0, 0, 0, 0, 0, 0];
+
+    for (let spanLevel = this.startLevel; spanLevel < this.currentLevel; spanLevel++)
+    {
+        let nextCosts = GameDB.academy.projectNextLevelCost(this.projectID, spanLevel, costDiv);
+        for (let i = 0; i < 8; i++)
+        {
+          accumCosts[i] += nextCosts[i];
+        }
+    }
+
+    return accumCosts;
+  }
 }
