@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 2, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 3, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     level: 0, // Player level
     timing:
     {
@@ -251,35 +251,9 @@ function LoadPlayerData()
 // Add new properties to player data object upon opening newer version of Super Assistant
 function UpdatePlayerData()
 {
-    if (playerData.version < 2)
+    if (playerData.version < 3)
     {
-        playerData.fleet.zeus.freePoints = 0;
-        playerData.loopMods.exodus = 0;
-        playerData.loopMods.allExchange = 0;
-        playerData.shardMilestones = blankPlayer.shardMilestones;
-
-        let newResearch = blankPlayer.research;
-        newResearch.mission[0] = playerData.research.missionAnalysis1 || 0;
-        newResearch.mission[1] = playerData.research.missionAnalysis2 || 0;
-        newResearch.mission[2] = playerData.research.missionAnalysis3 || 0;
-        playerData.research = newResearch;
-
-        playerData.academy.cmAP = 1;
-
-        playerData.academy.gearSets =
-        [
-            playerData.academy.gearLevels[0] + playerData.academy.gearLevels[1] + playerData.academy.gearLevels[2],
-            playerData.academy.gearLevels[3] + playerData.academy.gearLevels[4] + playerData.academy.gearLevels[5] + playerData.academy.gearLevels[6],
-            playerData.academy.gearLevels[7] + playerData.academy.gearLevels[8] + playerData.academy.gearLevels[9] + playerData.academy.gearLevels[10] + playerData.academy.gearLevels[11],
-            playerData.academy.gearLevels[12] + playerData.academy.gearLevels[13] + playerData.academy.gearLevels[14] + playerData.academy.gearLevels[15] + playerData.academy.gearLevels[16],
-            playerData.academy.gearLevels[17] + playerData.academy.gearLevels[18] + playerData.academy.gearLevels[19] + playerData.academy.gearLevels[20] + playerData.academy.gearLevels[21],
-        ];
-
-        playerData.academy.farmYieldSetting = { type: 0, duration: 0 };
-
-        playerData.academy.ap = 0;
-
-        playerData.version = 2;
+        playerData = blankPlayer;
     }
     SavePlayerData();
 }
