@@ -70,8 +70,16 @@ function GetMaxMissionRate()
     let farms = [...GameDB.academy.farms];
     farms.sort((a,b) => {return a.baseTime - b.baseTime;} );
 
-    let speedBoost = (playerData.academy.badges.engineering + 1) * Math.pow(1.05, Math.floor(playerData.research.mission[2] + 1) / 2) * Math.pow(1.03, playerData.loopMods.swarm);
-
+    let missionSpeedBonus = (GameDB.bugs.swarm ? (0.03 * playerData.loopMods.swarm + 1) : Math.pow(1.03, playerData.loopMods.swarm));
+    missionSpeedBonus *= (
+        GameDB.bugs.mission3 ?
+        Math.pow(1.05, Math.floor((playerData.research.mission[2] + 1) / 2)) / (0.05 * (playerData.research.mission[2] === 6) + 1) :
+        Math.pow(1.05, Math.floor((playerData.research.mission[2] + 1) / 2))
+    );
+    missionSpeedBonus *= (playerData.research.perfection[2] > 4) + 1;
+    missionSpeedBonus *= (playerData.research.perfection[3] > 4) + 1;
+    missionSpeedBonus *= playerData.academy.badges.engineering + 1;
+    
     let personnel = 
     [
         {
@@ -125,7 +133,7 @@ function GetMaxMissionRate()
                     currentPop: 0,
                     popDistro: [0, 0, 0, 0],
                     power: 0,
-                    baseTime: farm.baseTime / speedBoost,
+                    baseTime: farm.baseTime / missionSpeedBonus,
                     get availSpace() { return this.maxPop - this.currentPop; },
                     get timeLimitPassed() { return !((this.power === 0) || (this.baseTime * 60 / this.power >= 2)); }
                 }
@@ -142,6 +150,14 @@ function GetMaxMissionRate()
                     {
                         farmSpecs.currentPop--;
                         farmSpecs.power -= personnel[personnelNum].power;
+                        
+                        if (!farmSpecs.timeLimitPassed && personnelNum === 3)
+                        {
+                            farmSpecs.currentPop++;
+                            farmSpecs.power += personnel[personnelNum].power;
+                            break;
+                        }
+                        
                         personnel[personnelNum].usedPop--;
                         playerData.academy.farms[planet - 1][farmNum - 1][GameDB.academy.personnel[3-personnelNum]]--;
                     }
