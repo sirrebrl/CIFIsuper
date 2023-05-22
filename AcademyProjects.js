@@ -107,33 +107,38 @@ let academyProjectPortal =
             displays: [
                 {
                     id: 'storagegoal',
-                    left: 20, top: 7.75,
-                    height: 2, width: 7
+                    left: 24, top: 7.75,
+                    height: 2, width: 6
                 },
                 {
                     id: 'transfergoal',
-                    left: 20, top: 11.75,
-                    height: 2, width: 7
+                    left: 24, top: 11.75,
+                    height: 2, width: 6
                 },
                 {
                     id: 'biomechgoal',
-                    left: 20, top: 15.75,
-                    height: 2, width: 7
+                    left: 24, top: 15.75,
+                    height: 2, width: 6
                 },
                 {
                     id: 'exogoal',
-                    left: 20, top: 19.75,
-                    height: 2, width: 7
+                    left: 24, top: 19.75,
+                    height: 2, width: 6
                 },
                 {
                     id: 'defensivegoal',
-                    left: 20, top: 23.75,
-                    height: 2, width: 7
+                    left: 24, top: 23.75,
+                    height: 2, width: 6
                 },
                 {
                     id: 'warpdrivegoal',
-                    left: 20, top: 27.75,
-                    height: 2, width: 7
+                    left: 24, top: 27.75,
+                    height: 2, width: 6
+                },
+                {
+                    id: 'totalnew',
+                    left: 24, top: 31.75,
+                    height: 2, width: 6
                 }
             ],
             buttons: [],
@@ -387,14 +392,17 @@ function generateRunYield()
         {
             portalPanel[`setter${projects[projectID]}${level}`].dataset.setting = (level <= maxLevel ? 2 : 0);
         }
+        portalPanel[`${projects[projectID]}goal`].innerText = portalPanel.projectConfigs[projectID].currentLevel;
     }
 
-    console.table(portalPanel.storehouse.mats);
+    portalPanel.totalnew.innerText = '+ 0';
 }
 
 function setProjectLevel(project, level, setting)
 {
     portalPanel.projectConfigs[project].currentLevel = portalPanel.projectConfigs[project].startLevel + level - (setting === "3");
+
+    let totalNew = 0;
 
     for (let i = 0; i < portalPanel.storehouse.mats.length; i++)
     {
@@ -410,7 +418,11 @@ function setProjectLevel(project, level, setting)
             portalPanel.storehouse.spent[mat] += projectCosts[mat];
             console.log('= ' + portalPanel.storehouse.spent[mat].toExponential(2));
         }
+
+        totalNew += (portalPanel.projectConfigs[i].currentLevel - portalPanel.projectConfigs[i].startLevel)
     }
+
+    portalPanel.totalnew.innerText = `+ ${totalNew}`;
 
     for (let projectID = 0; projectID < 6; projectID++)
     {
@@ -426,5 +438,6 @@ function setProjectLevel(project, level, setting)
             
             portalPanel[`setter${projects[projectID]}${setLevel}`].dataset.setting = setting;
         }
+        portalPanel[`${projects[projectID]}goal`].innerText = portalPanel.projectConfigs[projectID].currentLevel;
     }
 }
