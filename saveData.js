@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 4, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 5, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     level: 0, // Player level
     timing:
     {
@@ -102,6 +102,11 @@ const blankPlayer =
             0, // (2) [AP = level > 3 ? 10 : 1, Materials = 4 * (level > 1) + 1]
             0, // (3) [AP = level > 3 ? 50 : 1, Materials = 4 * (level > 1) + 1, Mission Speed = (level > 4) + 1]
             0 // (4) [AP = level > 3 ? 99 : 1, Materials = 8 * (level > 1) + 1, Mission Speed = (level > 4) + 1]
+        ],
+        construction:
+        [
+            0, // (1) Project Cost = (level > 1 ? 1.5 : 1) * (level > 3 ? 2 : 1) * (level > 5 ? 2.5 : 1)]
+            0, // (2) Project Cost = (level > 1 ? 2 : 1) * (level > 3 ? 3 : 1) * (level > 5 ? 4 : 1)]
         ]
     },
     academy:
@@ -208,6 +213,10 @@ const blankPlayer =
             0, /* RP Gained *= pow(2, level) */
             0 /* AP Gained *= pow(1.25, level) */
         ],
+        projectGoals:
+        [
+            0, 0, 0, 0, 0, 0
+        ],
         gearLevels:
         [
             0, 0, 0, // Purple
@@ -255,6 +264,12 @@ function UpdatePlayerData()
     if (playerData.version < 4)
     {
         playerData = blankPlayer;
+    }
+    if (playerData.version < 5)
+    {
+        playerData.academy.projectGoals = [0, 0, 0, 0, 0, 0];
+        playerData.research.construction = [0, 0];
+        playerData.version = 5;
     }
     SavePlayerData();
 }
