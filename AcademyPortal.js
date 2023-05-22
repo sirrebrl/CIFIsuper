@@ -223,6 +223,7 @@ function CalculateFarmYields(giveTotal = false)
     staticAPbonus *= 0.15 * playerData.diamonds.cards.rigel + 1;
     staticAPbonus *= 0.2 * playerData.diamonds.cards.utopia + 1;
     staticAPbonus *= 0.1 * playerData.diamonds.cards.zion + 1;
+    staticAPbonus *= GameDB.academy.getCampaignAP(playerData.academy.campaignsComplete);
 
 
     let staticMatBonus = Math.pow(1.01, playerData.loopMods.beyonders);
