@@ -5,7 +5,8 @@ let GameDB =
         destruction: true,
         wonderous: true,
         swarm: true,
-        mission3: true
+        mission3: true,
+        construction: true
     },
     academy:
     {
@@ -115,7 +116,8 @@ let GameDB =
                 [
                     600, 200, 0, 0, 0, 0, 0, 0
                 ],
-                costScalar: 1.25
+                costScalar: 1.25,
+                costBump: 0.016
             },
             {
                 name: 'Transfer Wires',
@@ -123,7 +125,8 @@ let GameDB =
                 [
                     2750, 1500, 500, 0, 0, 0, 0, 0
                 ],
-                costScalar: 1.4
+                costScalar: 1.4,
+                costBump: 0.05
             },
             {
                 name: 'Bio-Mechanics Lab',
@@ -131,7 +134,8 @@ let GameDB =
                 [
                     0, 0, 2400, 1000, 500, 0, 0, 0
                 ],
-                costScalar: 1.7
+                costScalar: 1.7,
+                costBump: 0.09
             },
             {
                 name: 'Exo-Energy',
@@ -139,7 +143,8 @@ let GameDB =
                 [
                     0, 7000, 5000, 1500, 1500, 0, 0, 0
                 ],
-                costScalar: 1.4
+                costScalar: 1.4,
+                costBump: 0.07
             },
             {
                 name: 'Defensive Research',
@@ -147,7 +152,8 @@ let GameDB =
                 [
                     0, 0, 0, 0, 0, 1000, 200, 0
                 ],
-                costScalar: 1.6
+                costScalar: 1.6,
+                costBump: 0.08
             },
             {
                 name: 'Warp-Drive Lab',
@@ -155,9 +161,17 @@ let GameDB =
                 [
                     0, 0, 0, 0, 260000, 120000, 28000, 28000
                 ],
-                costScalar: 2
+                costScalar: 2,
+                costBump: 0.11
             }
-        ] // END .projects
+        ],
+        projectNextLevelCost(projectID, level, costDiv)
+        {
+            let project = this.projects[projectID];
+            return project.baseCosts.map(mat => {
+                return mat * Math.pow(project.costScalar + (project.costBump * Math.floor(level / 100)), level) / costDiv;
+            });
+        } // END .projects
     },
     fleet:
     {
