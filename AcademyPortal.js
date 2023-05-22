@@ -5,7 +5,6 @@ function CalculateFarmTimes(getRawTime = false)
     {
         for (let farm = 0; farm < 3; farm++)
         {
-            console.log(`F${planet}-${farm}`);
             let power = 0;
             let population = 0;
             power += playerData.academy.farms[planet][farm].pods * playerData.academy.personnel[0].power;
@@ -38,8 +37,6 @@ function CalculateFarmTimes(getRawTime = false)
 
             let seconds = 60 * GameDB.academy.farms[planet * 3 + farm].baseTime / (power * missionSpeedBonus);
             seconds = Math.max(seconds, 2);
-
-            console.log(seconds);
 
             if (getRawTime) { farmData.push({time: seconds, personnel: population}); continue; }
 
@@ -139,8 +136,6 @@ function GetMaxMissionRate()
                     farmSpecs.currentPop += populate;
                     farmSpecs.power += populate * personnel[personnelNum].power;
                     personnel[personnelNum].usedPop += populate;
-                    console.log(GameDB.academy.personnel[3-personnelNum]);
-                    console.log(playerData.academy.farms[planet - 1][farmNum - 1]);
                     playerData.academy.farms[planet - 1][farmNum - 1][GameDB.academy.personnel[3-personnelNum]] += populate;
 
                     while (farmSpecs.timeLimitPassed)
@@ -171,6 +166,8 @@ function CalculateFarmYields()
     {
         duration *= 24
     }
+
+    console.log('duration: ' + duration);
 
     let staticAPbonus = Math.pow(1.01, playerData.loopMods.beyonders);
     staticAPbonus *= (GameDB.bugs.destruction ? (3 * playerData.loopMods.destruction) : Math.pow(3, playerData.loopMods.destruction));
@@ -249,22 +246,29 @@ function CalculateFarmYields()
     }
 
     let missionYield = 0;
-    let apYield = playerData.academy.ap;
-    let matYield = [...playerData.academy.stock];
+    // let apYield = playerData.academy.ap;
+    // let matYield = [...playerData.academy.stock];
+    let apYield = 0;
+    let matYield = [0, 0, 0, 0, 0, 0, 0, 0];
     let rankProgress = playerData.fleet.zeus.rank.progress;
     let yieldRank = playerData.fleet.zeus.rank.current;
+
+    if (farms.length === 0)
+    {
+        return {missionYield, apYield, matYield};
+    }
 
     while (duration > 0)
     {
         farms.sort((a,b) => { return a.activeTime - b.activeTime; });
         let subTime = farms[0].activeTime;
 
-        if (subTime > duration + 60) break;
+        if (subTime > duration) break;
 
         for (let i = 0; i < farms.length; i++)
         {
             farms[i].activeTime -= subTime;
-            
+
             if (farms[i].activeTime <= 0)
             {
                 farms[i].activeTime = farms[i].runTime;
