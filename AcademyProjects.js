@@ -387,8 +387,8 @@ function generateRunYield()
     {
         portalPanel.projectConfigs.push(new ProjectConfig(projectID, playerData.academy.projectLevels[projectID]));
         let maxLevel = portalPanel.projectConfigs[projectID].MaxLevel(portalPanel.storehouse).newLevels;
-        portalPanel.theoreticals.push(maxLevel);
-        for (let level = 1; level < 30; level++)
+        portalPanel.theoreticals.push(Math.min(maxLevel, 30));
+        for (let level = 1; level <= 30; level++)
         {
             portalPanel[`setter${projects[projectID]}${level}`].dataset.setting = (level <= maxLevel ? 2 : 0);
         }
