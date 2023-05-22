@@ -20,7 +20,7 @@ let GameDB =
                 id: 11,
                 baseTime: 30,
                 maxPop: 20,
-                baseAP: 260,
+                baseAP: 265,
                 baseMats: // Difar
                 [
                     38, 0, 0, 0, 0, 0, 0, 0
@@ -30,7 +30,7 @@ let GameDB =
                 id: 12,
                 baseTime: 360,
                 maxPop: 60,
-                baseAP: 7800,
+                baseAP: 7950,
                 baseMats: // Kento
                 [
                     0, 320, 0, 0, 0, 0, 0, 0
@@ -40,7 +40,7 @@ let GameDB =
                 id: 13,
                 baseTime: 2400,
                 maxPop: 100,
-                baseAP: 62680,
+                baseAP: 63720,
                 baseMats: // Difar, Kento, Chromium
                 [
                     1350, 280, 760, 0, 0, 0, 0, 0
@@ -50,7 +50,7 @@ let GameDB =
                 id: 21,
                 baseTime: 150,
                 maxPop: 80,
-                baseAP: 1820,
+                baseAP: 1856,
                 baseMats: // Exon
                 [
                     0, 0, 0, 20, 0, 0, 0, 0
@@ -60,7 +60,7 @@ let GameDB =
                 id: 22,
                 baseTime: 2400,
                 maxPop: 160,
-                baseAP: 9280,
+                baseAP: 9430,
                 baseMats: // Chromium, Organium
                 [
                     0, 0, 560, 0, 80, 0, 0, 0
@@ -70,7 +70,7 @@ let GameDB =
                 id: 23,
                 baseTime: 72000,
                 maxPop: 500,
-                baseAP: 598086,
+                baseAP: 608500,
                 baseMats: // Exon, Organium, Adamorphium
                 [
                     0, 0, 0, 2200, 320, 260, 0, 0
@@ -80,7 +80,7 @@ let GameDB =
                 id: 31,
                 baseTime: 3000,
                 maxPop: 150,
-                baseAP: 104306,
+                baseAP: 106050,
                 baseMats: // Moskom
                 [
                     0, 0, 0, 0, 0, 0, 19, 0
@@ -90,7 +90,7 @@ let GameDB =
                 id: 32,
                 baseTime: 975000,
                 maxPop: 2000,
-                baseAP: 52153110,
+                baseAP: 52800000,
                 baseMats: // Darkseid
                 [
                     0, 0, 0, 0, 0, 0, 0, 80
@@ -100,7 +100,7 @@ let GameDB =
                 id: 33,
                 baseTime: 1875000,
                 maxPop: 4000,
-                baseAP: 104306220,
+                baseAP: 106000000,
                 baseMats: // Organium, Adamorphium, Moskom, Darkseid
                 [
                     0, 0, 0, 0, 5200, 2440, 3980, 160
