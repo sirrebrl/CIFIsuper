@@ -15,27 +15,28 @@ navBar.appendChild(navHighlight);
 
 const navButtons = [];
 
-createNavButton('gens', 'Gens', 'rgba(255, 255, 255, 1)'); // 0
-createNavButton('fleet', 'Fleet', 'rgba(255, 255, 255, 1)'); // 1
-createNavButton('upgrades', 'Upgrades', 'rgba(255, 255, 255, 1)'); // 2
-    createNavButton('upgrades-tech', "Tech", 'rgba(255, 255, 255, 1)', 'upgrades'); // 3
-    createNavButton('upgrades-loop', "Loop", 'rgba(255, 255, 255, 1)', 'upgrades'); // 4
-    createNavButton('upgrades-auto', "Automation", 'rgba(255, 255, 255, 1)', 'upgrades'); // 5
-    createNavButton('upgrades-shards', "Shards", 'rgba(255, 255, 255, 1)', 'upgrades'); // 6
-    createNavButton('upgrades-research', "Research", 'rgba(255, 255, 255, 1)', 'upgrades'); // 7
+// createNavButton('gens', 'Gens', 'rgba(255, 255, 255, 1)'); // 0
+// createNavButton('fleet', 'Fleet', 'rgba(255, 255, 255, 1)'); // 1
+// createNavButton('upgrades', 'Upgrades', 'rgba(255, 255, 255, 1)'); // 2
+//     createNavButton('upgrades-tech', "Tech", 'rgba(255, 255, 255, 1)', 'upgrades'); // 3
+//     createNavButton('upgrades-loop', "Loop", 'rgba(255, 255, 255, 1)', 'upgrades'); // 4
+//     createNavButton('upgrades-auto', "Automation", 'rgba(255, 255, 255, 1)', 'upgrades'); // 5
+//     createNavButton('upgrades-shards', "Shards", 'rgba(255, 255, 255, 1)', 'upgrades'); // 6
+//     createNavButton('upgrades-research', "Research", 'rgba(255, 255, 255, 1)', 'upgrades'); // 7
 createNavButton('academy', "Academy", 'rgba(255, 255, 255, 1)'); // 8
+    createNavButton('academy-effectors', "Effectors", 'rgba(255, 255, 255, 1)', 'academy'); // 9
     createNavButton('academy-farms', "Farms", 'rgba(255, 255, 255, 1)', 'academy'); // 9
-    createNavButton('academy-projects', "Projects", 'rgba(255, 255, 255, 1)', 'academy'); // 10
-    createNavButton('academy-gear', "Gear", 'rgba(255, 255, 255, 1)', 'academy'); // 11
-    createNavButton('academy-badges', "CMs & Badges", 'rgba(255, 255, 255, 1)', 'academy'); // 12
-createNavButton('tokens', 'Tokens', 'rgba(255, 255, 255, 1)'); // 13
-    createNavButton('tokens-tier1', "Tier 1", 'rgba(255, 255, 255, 1)', 'tokens'); // 14
-    createNavButton('tokens-tier2', "Tier 2", 'rgba(255, 255, 255, 1)', 'tokens'); // 15
-    createNavButton('tokens-tier3', "Tier 3", 'rgba(255, 255, 255, 1)', 'tokens'); // 16
-createNavButton('diamonds', 'Diamonds', 'rgba(255, 255, 255, 1)'); // 17
-    createNavButton('diamonds-output', "Generator", 'rgba(255, 255, 255, 1)', 'diamonds'); // 18
-    createNavButton('diamonds-special', "Special", 'rgba(255, 255, 255, 1)', 'diamonds'); // 19
-    createNavButton('diamonds-otu', "One-Timer", 'rgba(255, 255, 255, 1)', 'diamonds'); // 20
+//     createNavButton('academy-projects', "Projects", 'rgba(255, 255, 255, 1)', 'academy'); // 10
+//     createNavButton('academy-gear', "Gear", 'rgba(255, 255, 255, 1)', 'academy'); // 11
+//     createNavButton('academy-badges', "CMs & Badges", 'rgba(255, 255, 255, 1)', 'academy'); // 12
+// createNavButton('tokens', 'Tokens', 'rgba(255, 255, 255, 1)'); // 13
+//     createNavButton('tokens-tier1', "Tier 1", 'rgba(255, 255, 255, 1)', 'tokens'); // 14
+//     createNavButton('tokens-tier2', "Tier 2", 'rgba(255, 255, 255, 1)', 'tokens'); // 15
+//     createNavButton('tokens-tier3', "Tier 3", 'rgba(255, 255, 255, 1)', 'tokens'); // 16
+// createNavButton('diamonds', 'Diamonds', 'rgba(255, 255, 255, 1)'); // 17
+//     createNavButton('diamonds-output', "Generator", 'rgba(255, 255, 255, 1)', 'diamonds'); // 18
+//     createNavButton('diamonds-special', "Special", 'rgba(255, 255, 255, 1)', 'diamonds'); // 19
+//     createNavButton('diamonds-otu', "One-Timer", 'rgba(255, 255, 255, 1)', 'diamonds'); // 20
 
 // Differentiating nav elements with children as not for navigation, and all childless elements as for navigation
 navButtons.forEach(navButton =>
@@ -55,6 +56,8 @@ const navDim =
     width: window.innerWidth,
     height: window.innerHeight
 };
+
+let activePortal = academyEffectorPortal;
 
 function createNavButton(panel, text, color, parent = null)
 {
@@ -134,8 +137,7 @@ let destroyCurrentPanel = null;
 
 function openDefaultPanel()
 {
-    ConstructPortal(window.innerHeight - navDim.height, navDim.width, academyFarmPortal);
-    // constructAcademyPanel(navDim.width, window.innerHeight - navDim.height, 'academy-farms');
+    ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
     // console.log(navButtons[3].spawnChildren());
     // console.log(navButtons);
     // debugger;
@@ -191,7 +193,7 @@ function reDim()
     // if (panelResizeFunction) panelResizeFunction(navDim.width, window.innerHeight - navDim.height);
 
     destroyPortal();
-    openDefaultPanel();
+    ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
 
     deHighlight();
 }
@@ -225,113 +227,121 @@ function destroyNavChildren(highlighting = false)
 
 function highlightNav()
 {
-    // const navCoords = this.getBoundingClientRect();
-    // const newCoords =
-    // {
-    //     width: Math.round(navCoords.width * 1.2),
-    //     height: Math.round(navCoords.height * 1.2),
-    //     left: Math.round(navCoords.left - (navCoords.width * 0.1)),
-    //     top: Math.round(navCoords.top - (navCoords.height * 0.2))
-    // };
-    // navHighlight.style.width = `${newCoords.width}px`;
-    // navHighlight.style.height = `${newCoords.height}px`;
-    // navHighlight.style.transform = `translate(${newCoords.left}px, ${newCoords.top}px)`;
+    const navCoords = this.getBoundingClientRect();
+    const newCoords =
+    {
+        width: Math.round(navCoords.width * 1.2),
+        height: Math.round(navCoords.height * 1.2),
+        left: Math.round(navCoords.left - (navCoords.width * 0.1)),
+        top: Math.round(navCoords.top - (navCoords.height * 0.2))
+    };
+    navHighlight.style.width = `${newCoords.width}px`;
+    navHighlight.style.height = `${newCoords.height}px`;
+    navHighlight.style.transform = `translate(${newCoords.left}px, ${newCoords.top}px)`;
 
-    // const targetNav = this.dataset.panel;
+    const targetNav = this.dataset.panel;
 
-    // navButtons.forEach(navButton =>
-    //     {
-    //         if (!this.classList.contains('navChild') && targetNav.includes(navButton.panel))
-    //         {
-    //             destroyNavChildren(true);
-    //             if (targetNav === navButton.panel && navButton.children.length > 0) { navButton.spawnChildren(); }
-    //             navButton.highlighted = true;
-    //         }
-    //     });
-    // navButtons.forEach(navButton =>
-    //     {
-    //         if (!this.dataset.panel.includes(navButton.panel))
-    //         { 
-    //             navButton.highlighted = false;
-    //         }
-    //     });
+    navButtons.forEach(navButton =>
+        {
+            if (!this.classList.contains('navChild') && targetNav.includes(navButton.panel))
+            {
+                destroyNavChildren(true);
+                if (targetNav === navButton.panel && navButton.children.length > 0) { navButton.spawnChildren(); }
+                navButton.highlighted = true;
+            }
+        });
+    navButtons.forEach(navButton =>
+        {
+            if (!this.dataset.panel.includes(navButton.panel))
+            { 
+                navButton.highlighted = false;
+            }
+        });
 }
 
 function deHighlight()
 {
-    // const childrenDestroyed = destroyNavChildren();
+    if (!activeNavLink) return;
 
-    // navButtons.forEach(navButton =>
-    //     {
-    //         if (!navButton.highlighted && navButton.active && navButton.children.length > 0)
-    //         { 
-    //             if (childrenDestroyed) { navButton.spawnChildren(); }
-    //             navButton.children.forEach(navChild =>
-    //                 {
-    //                     if (activeNavPanel === navChild.panel) { activeNavLink = navChild.elem; }
-    //                 })
-    //         }
-    //         navButton.highlighted = false;
-    //     });
+    const childrenDestroyed = destroyNavChildren();
 
-    // const navCoords = activeNavLink.getBoundingClientRect();
-    // const newCoords =
-    // {
-    //     width: Math.round(navCoords.width * 1.2),
-    //     height: Math.round(navCoords.height * 1.2),
-    //     left: Math.round(navCoords.left - (navCoords.width * 0.1)),
-    //     top: Math.round(navCoords.top - (navCoords.height * 0.2))
-    // };
-    // navHighlight.style.width = `${newCoords.width}px`;
-    // navHighlight.style.height = `${newCoords.height}px`;
-    // navHighlight.style.transform = `translate(${newCoords.left}px, ${newCoords.top}px)`;
+    navButtons.forEach(navButton =>
+        {
+            if (!navButton.highlighted && navButton.active && navButton.children.length > 0)
+            { 
+                if (childrenDestroyed) { navButton.spawnChildren(); }
+                navButton.children.forEach(navChild =>
+                    {
+                        if (activeNavPanel === navChild.panel) { activeNavLink = navChild.elem; }
+                    })
+            }
+            navButton.highlighted = false;
+        });
+
+    const navCoords = activeNavLink.getBoundingClientRect();
+    const newCoords =
+    {
+        width: Math.round(navCoords.width * 1.2),
+        height: Math.round(navCoords.height * 1.2),
+        left: Math.round(navCoords.left - (navCoords.width * 0.1)),
+        top: Math.round(navCoords.top - (navCoords.height * 0.2))
+    };
+    navHighlight.style.width = `${newCoords.width}px`;
+    navHighlight.style.height = `${newCoords.height}px`;
+    navHighlight.style.transform = `translate(${newCoords.left}px, ${newCoords.top}px)`;
 
 }
 
 function navigatePanel(e)
 {
-    // const targetPanel = e.target.dataset.panel;
-    // navButtons.forEach(navButton =>
-    //     {
-    //         if (navButton.panel === targetPanel)
-    //         {
-    //             navButton.active = true;
-    //             activeNavLink = navButton.elem;
-    //             activeNavPanel = navButton.panel;
-    //         }
-    //         else if (targetPanel.includes(navButton.panel))
-    //         {
-    //             navButton.active = true;
-    //             navButton.children.forEach(navChild =>
-    //                 {
-    //                     if (navChild.panel === targetPanel)
-    //                     {
-    //                         navChild.active = true;
-    //                         activeNavLink = navChild.elem;
-    //                         activeNavPanel = navChild.panel;
-    //                     }
-    //                     else
-    //                     {
-    //                         navChild.active = false;
-    //                     }
-    //                 });
-    //         }
-    //         else
-    //         {
-    //             navButton.active = false;
-    //             if (navButton.children.length > 0)
-    //             {
-    //                 navButton.children.forEach(navChild => { navChild.active = false;});
-    //             }
-    //         }
-    //     });
+    const targetPanel = e.target.dataset.panel;
+    navButtons.forEach(navButton =>
+        {
+            if (navButton.panel === targetPanel)
+            {
+                navButton.active = true;
+                activeNavLink = navButton.elem;
+                activeNavPanel = navButton.panel;
+            }
+            else if (targetPanel.includes(navButton.panel))
+            {
+                navButton.active = true;
+                navButton.children.forEach(navChild =>
+                    {
+                        if (navChild.panel === targetPanel)
+                        {
+                            navChild.active = true;
+                            activeNavLink = navChild.elem;
+                            activeNavPanel = navChild.panel;
+                        }
+                        else
+                        {
+                            navChild.active = false;
+                        }
+                    });
+            }
+            else
+            {
+                navButton.active = false;
+                if (navButton.children.length > 0)
+                {
+                    navButton.children.forEach(navChild => { navChild.active = false;});
+                }
+            }
+        });
 
-    // if (targetPanel.includes('farms'))
-    // { destroyCurrentPanel(); constructAcademyPanel(navDim.width, window.innerHeight - navDim.height, targetPanel); }
-    // else if (targetPanel.includes('crystals'))
-    // { destroyCurrentPanel(); constructCrystalPanel(navDim.width, window.innerHeight - navDim.height, targetPanel); }
-    // else if (targetPanel === 'prestige-sim')
-    // { destroyCurrentPanel(); constructSimResetPanel(navDim.width, window.innerHeight - navDim.height); }
+    if (targetPanel.includes('academy-effectors'))
+    { 
+        destroyPortal(); 
+        activePortal = academyEffectorPortal;
+        ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
+    }
+    else if (targetPanel.includes('academy-farms'))
+    { 
+        destroyPortal(); 
+        activePortal = academyFarmPortal;
+        ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
+    }
     
     setTimeout(reDim, 50);
 }
