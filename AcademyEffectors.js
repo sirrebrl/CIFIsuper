@@ -344,7 +344,8 @@ let academyEffectorPortal =
                     height: 2, width: 6
                 }
             ],
-            checkboxes: [],
+            checkboxes: [
+            ],
             displays: [],
             buttons: [],
             toggles: [
@@ -570,7 +571,7 @@ let academyEffectorPortal =
         },
         sr: {
             id: 'sr',
-            text: 'Shard Milestones and Research',
+            text: 'Shards, Research, Diamonds',
             color: '#ffffff',
             pagerSize: { width: 42, height: 2 },
             pagerLeft: 44,
@@ -584,6 +585,11 @@ let academyEffectorPortal =
                     text: 'Researches',
                     left: 1, top: 19, 
                     height: 3, width: 16
+                },
+                {
+                    text: 'Diamonds',
+                    left: 40, top: 7, 
+                    height: 3, width: 12
                 }
             ],
             labels: [
@@ -676,6 +682,36 @@ let academyEffectorPortal =
                     text: '(2)',
                     left: 9, top: 38,
                     height: 2, width: 3
+                },
+                {
+                    text: 'Special: AP',
+                    left: 41, top: 11,
+                    height: 2, width: 9
+                },
+                {
+                    text: 'Nora Card',
+                    left: 41, top: 14,
+                    height: 2, width: 9
+                },
+                {
+                    text: 'Omega Card',
+                    left: 41, top: 17,
+                    height: 2, width: 9
+                },
+                {
+                    text: 'Rigel Card',
+                    left: 41, top: 20,
+                    height: 2, width: 9
+                },
+                {
+                    text: 'Utopia Card',
+                    left: 41, top: 23,
+                    height: 2, width: 9
+                },
+                {
+                    text: 'Zion Card',
+                    left: 41, top: 26,
+                    height: 2, width: 9
                 }
             ],
             inputs: [
@@ -769,9 +805,39 @@ let academyEffectorPortal =
                     left: 13, top: 37.25,
                     height: 2, width: 2
                 },
+                {
+                    id: 'specialap',
+                    type: 'number',
+                    left: 51, top: 10.25,
+                    height: 2, width: 3
+                },
             ],
             checkboxes: [
-        
+                {
+                    id: 'nora',
+                    left: 51, top: 13.25,
+                    width: 2, height: 2
+                },
+                {
+                    id: 'omega',
+                    left: 51, top: 16.25,
+                    width: 2, height: 2
+                },
+                {
+                    id: 'rigel',
+                    left: 51, top: 19.25,
+                    width: 2, height: 2
+                },
+                {
+                    id: 'utopia',
+                    left: 51, top: 22.25,
+                    width: 2, height: 2
+                },
+                {
+                    id: 'zion',
+                    left: 51, top: 25.25,
+                    width: 2, height: 2
+                }
             ],
             displays: [
         
@@ -867,6 +933,12 @@ academyEffectorPortal.pages.sr.dataLinkage =
     set perfection4(value) { playerData.research.perfection[3] = value; },
     set construction1(value) { playerData.research.construction[0] = value; },
     set construction2(value) { playerData.research.construction[1]= value; },
+    set specialap(value) { playerData.diamonds.special.ap = value; },
+    set nora(value) { playerData.diamonds.cards.nora = value; },
+    set omega(value) { playerData.diamonds.cards.omega = value; },
+    set rigel(value) { playerData.diamonds.cards.rigel = value; },
+    set utopia(value) { playerData.diamonds.cards.utopia = value; },
+    set zion(value) { playerData.diamonds.cards.zion = value; },
 
     get studying() { return playerData.shardMilestones[17]; },
     get targeting() { return playerData.shardMilestones[20]; },
@@ -883,6 +955,12 @@ academyEffectorPortal.pages.sr.dataLinkage =
     get perfection4() { return playerData.research.perfection[3]; },
     get construction1() { return playerData.research.construction[0]; },
     get construction2() { return playerData.research.construction[1]; },
+    get specialap() { return playerData.diamonds.special.ap; },
+    get nora() { return playerData.diamonds.cards.nora; },
+    get omega() { return playerData.diamonds.cards.omega; },
+    get rigel() { return playerData.diamonds.cards.rigel; },
+    get utopia() { return playerData.diamonds.cards.utopia; },
+    get zion() { return playerData.diamonds.cards.zion; }
 };
 
 academyEffectorPortal.pages.mods.updateFunction = function(e) {
@@ -926,7 +1004,16 @@ academyEffectorPortal.pages.zeus.updateFunction = function(e) {
     SavePlayerData();
 };
 
+// academyEffectorPortal.pages.sr
+
 academyEffectorPortal.pages.sr.updateFunction = function(e) {
+    if (e.target.type === 'checkbox')
+    {
+        portalPanel.dataLinkage[e.target.id] = e.target.checked;
+        SavePlayerData();
+        return;
+    }
+
     portalPanel.dataLinkage[e.target.id] = parseInt(e.target.value);
     SavePlayerData();
 };
