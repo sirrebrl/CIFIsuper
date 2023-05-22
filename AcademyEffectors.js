@@ -871,6 +871,14 @@ academyEffectorPortal.pages.zeus.updateFunction = function(e) {
         return;
     }
 
+    if (e.target.id === 'cm')
+    {
+        portalPanel.dataLinkage[e.target.id] = parseFloat(e.target.value);
+        SavePlayerData();
+        
+        return;
+    }
+
     if (e.target.type === 'number')
     {
         portalPanel.dataLinkage[e.target.id] = parseInt(e.target.value);
