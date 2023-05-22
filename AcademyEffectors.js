@@ -433,13 +433,18 @@ let academyEffectorPortal =
                 },
                 {
                     text: 'Construction Milestones: AP Bonus',
-                    left: 2, top: 32,
-                    height: 2, width: 23
+                    left: 1, top: 32,
+                    height: 2, width: 24
                 },
                 {
                     text: 'Badge: Engineering',
                     left: 2, top: 35,
                     height: 2, width: 13
+                },
+                {
+                    text: 'Campaigns Complete',
+                    left: 1, top: 38,
+                    height: 2, width: 15
                 },
                 {
                     text: 'Orange',
@@ -546,6 +551,12 @@ let academyEffectorPortal =
                     type: 'number',
                     left: 38, top: 34.25,
                     height: 2, width: 2
+                },
+                {
+                    id: 'campaigns',
+                    type: 'number',
+                    left: 17, top: 37.25,
+                    height: 2, width: 3
                 }
             ],
             checkboxes: [
@@ -898,6 +909,7 @@ academyEffectorPortal.pages.zeus.dataLinkage =
     set green(value) { playerData.academy.gearSets[3] = value; },
     set blue(value) { playerData.academy.gearSets[4] = value; },
     set engineering(value) { playerData.academy.badges.engineering = value; },
+    set campaigns(value) { playerData.academy.campaignsComplete = value; },
 
     get crew() { return playerData.fleet.zeus.crew; },
     get rank() { return playerData.fleet.zeus.rank.current; },
@@ -913,7 +925,8 @@ academyEffectorPortal.pages.zeus.dataLinkage =
     get red() { return playerData.academy.gearSets[2]; },
     get green() { return playerData.academy.gearSets[3]; },
     get blue() { return playerData.academy.gearSets[4]; },
-    get engineering() { return playerData.academy.badges.engineering; }
+    get engineering() { return playerData.academy.badges.engineering; },
+    get campaigns() { return playerData.academy.campaignsComplete; }
 };
 
 academyEffectorPortal.pages.sr.dataLinkage =
