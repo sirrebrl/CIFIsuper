@@ -216,7 +216,7 @@ function CalculateFarmYields(giveTotal = false)
     staticAPbonus *= (0.5 * (playerData.academy.gearSets[3] === 5) + 1);
     staticAPbonus *= (0.5 * (playerData.academy.gearSets[4] === 5) + 1);
     staticAPbonus *= Math.pow(1.25, playerData.academy.projectLevels[5]);
-    staticAPbonus *= playerData.academy.exchanges.dataCubes * 0.005 * Math.pow(1.25, playerData.loopMods.exodus) * Math.pow(1.5, playerData.loopMods.allExchange) * Math.pow(1.1, Math.floor(playerData.academy.exchanges.dataCubes / 100));
+    staticAPbonus *= playerData.academy.exchanges.dataCubes * 0.005 * Math.pow(1.25, playerData.loopMods.exodus) * Math.pow(1.5, playerData.loopMods.allExchange) * Math.pow(1.1, Math.floor(playerData.academy.exchanges.dataCubes / 100)) + 1;
     staticAPbonus *= Math.pow(1.03, playerData.diamonds.special.ap);
     staticAPbonus *= 0.18 * playerData.diamonds.cards.nora + 1;
     staticAPbonus *= 0.4 * playerData.diamonds.cards.omega + 1;
