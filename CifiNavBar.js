@@ -26,6 +26,7 @@ const navButtons = [];
 createNavButton('academy', "Academy", 'rgba(255, 255, 255, 1)'); // 8
     createNavButton('academy-effectors', "Effectors", 'rgba(255, 255, 255, 1)', 'academy'); // 9
     createNavButton('academy-farms', "Farms", 'rgba(255, 255, 255, 1)', 'academy'); // 9
+    createNavButton('academy-projects', "Projects", 'rgba(255, 255, 255, 1)', 'academy'); // 9
 //     createNavButton('academy-projects', "Projects", 'rgba(255, 255, 255, 1)', 'academy'); // 10
 //     createNavButton('academy-gear', "Gear", 'rgba(255, 255, 255, 1)', 'academy'); // 11
 //     createNavButton('academy-badges', "CMs & Badges", 'rgba(255, 255, 255, 1)', 'academy'); // 12
@@ -340,6 +341,12 @@ function navigatePanel(e)
     { 
         destroyPortal(); 
         activePortal = academyFarmPortal;
+        ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
+    }
+    else if (targetPanel.includes('academy-projects'))
+    { 
+        destroyPortal(); 
+        activePortal = academyProjectPortal;
         ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
     }
     
