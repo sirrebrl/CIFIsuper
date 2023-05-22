@@ -661,6 +661,21 @@ let academyEffectorPortal =
                     text: '(4)',
                     left: 23, top: 32,
                     height: 2, width: 3
+                },
+                {
+                    text: 'Construction Analysis',
+                    left: 2, top: 35,
+                    height: 2, width: 16
+                },
+                {
+                    text: '(1)',
+                    left: 2, top: 38,
+                    height: 2, width: 3
+                },
+                {
+                    text: '(2)',
+                    left: 9, top: 38,
+                    height: 2, width: 3
                 }
             ],
             inputs: [
@@ -741,7 +756,19 @@ let academyEffectorPortal =
                     type: 'number',
                     left: 27, top: 31.25,
                     height: 2, width: 2
-                }
+                },
+                {
+                    id: 'construction1',
+                    type: 'number',
+                    left: 6, top: 37.25,
+                    height: 2, width: 2
+                },
+                {
+                    id: 'construction2',
+                    type: 'number',
+                    left: 13, top: 37.25,
+                    height: 2, width: 2
+                },
             ],
             checkboxes: [
         
@@ -838,6 +865,8 @@ academyEffectorPortal.pages.sr.dataLinkage =
     set perfection2(value) { playerData.research.perfection[1]= value; },
     set perfection3(value) { playerData.research.perfection[2] = value; },
     set perfection4(value) { playerData.research.perfection[3] = value; },
+    set construction1(value) { playerData.research.construction[0] = value; },
+    set construction2(value) { playerData.research.construction[1]= value; },
 
     get studying() { return playerData.shardMilestones[17]; },
     get targeting() { return playerData.shardMilestones[20]; },
@@ -851,7 +880,9 @@ academyEffectorPortal.pages.sr.dataLinkage =
     get perfection1() { return playerData.research.perfection[0]; },
     get perfection2() { return playerData.research.perfection[1]; },
     get perfection3() { return playerData.research.perfection[2]; },
-    get perfection4() { return playerData.research.perfection[3]; }
+    get perfection4() { return playerData.research.perfection[3]; },
+    get construction1() { return playerData.research.construction[0]; },
+    get construction2() { return playerData.research.construction[1]; },
 };
 
 academyEffectorPortal.pages.mods.updateFunction = function(e) {
@@ -875,7 +906,7 @@ academyEffectorPortal.pages.zeus.updateFunction = function(e) {
     {
         portalPanel.dataLinkage[e.target.id] = parseFloat(e.target.value);
         SavePlayerData();
-        
+
         return;
     }
 
