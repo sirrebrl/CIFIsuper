@@ -264,14 +264,14 @@ function CalculateFarmYields()
         for (let i = 0; i < farms.length; i++)
         {
             farms[i].activeTime -= subTime;
-
+            
             if (farms[i].activeTime <= 0)
             {
                 farms[i].activeTime = farms[i].runTime;
+                missionYield++;
+                apYield += farms[i].staticAP;
                 for (let mat = 0; mat < farms[i].staticMats.length; mat++)
                 {
-                    missionYield++;
-                    apYield += farms[i].staticAP;
                     matYield[mat] += farms[i].staticMats[mat] * dynamicMatBonus;
                 }
 
