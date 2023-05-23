@@ -371,11 +371,14 @@ academyProjectPortal.pages.default.updateFunction = function(e)
             }
             setProjectLevel(project, level, setting);
         }
+
+        return;
     }
 
     portalPanel.dataLinkage[e.target.id] = parseInt(e.target.value);
     SavePlayerData();
 
+    generateRunYield();
 }
 
 function generateRunYield()
@@ -396,11 +399,15 @@ function generateRunYield()
     }
 
     portalPanel.totalnew.innerText = '+ 0';
+
+    resumeLevels();
 }
 
 function setProjectLevel(project, level, setting)
 {
     portalPanel.projectConfigs[project].currentLevel = portalPanel.projectConfigs[project].startLevel + level - (setting === "3");
+    playerData.academy.projectGoals[project] = level;
+    SavePlayerData();
 
     let totalNew = 0;
 
@@ -440,4 +447,65 @@ function setProjectLevel(project, level, setting)
         }
         portalPanel[`${projects[projectID]}goal`].innerText = portalPanel.projectConfigs[projectID].currentLevel;
     }
+}
+
+function resumeLevels()
+{
+    let prevLevels = playerData.academy.projectGoals;
+
+    let overspent = false;
+    let totalNew = 0;
+
+    for (let i = 0; i < 6; i++)
+    {
+        portalPanel.projectConfigs[i].currentLevel = prevLevels[i] + portalPanel.projectConfigs[i].startLevel;
+        let projectCosts = portalPanel.projectConfigs[i].currentCost;
+
+        for (let mat = 0; mat < 8; mat++)
+        {
+            portalPanel.storehouse.spent[mat] += projectCosts[mat];
+            if (portalPanel.storehouse.spent[mat] > portalPanel.storehouse.mats[mat])
+            {
+                overspent = true;
+                break;
+            }
+        }
+
+        if (overspent) break;
+
+        totalNew += (portalPanel.projectConfigs[i].currentLevel - portalPanel.projectConfigs[i].startLevel)
+    }
+
+    if (overspent)
+    {
+        for (let i = 0; i < 6; i++)
+        {
+            portalPanel.projectConfigs[i].currentLevel = portalPanel.projectConfigs[i].startLevel;
+            playerData.academy.projectGoals[i] = 0;
+        }
+        for (let i = 0; i < 8; i++)
+        {
+            portalPanel.storehouse.spent[i] = 0;
+        }
+        return;
+    }
+
+    for (let projectID = 0; projectID < 6; projectID++)
+    {
+        let currentLevel = portalPanel.projectConfigs[projectID].currentLevel - portalPanel.projectConfigs[projectID].startLevel;
+        let maxLevel = portalPanel.projectConfigs[projectID].MaxLevel(portalPanel.storehouse).newLevels + currentLevel;
+        let theoretical = portalPanel.theoreticals[projectID];
+        for (let setLevel = 1; setLevel <= theoretical; setLevel++)
+        {
+            let setting = 0;
+            if (setLevel <= currentLevel) setting = 3;
+            else if (setLevel <= maxLevel) setting = 2;
+            else if (setLevel <= theoretical) setting = 1;
+            
+            portalPanel[`setter${projects[projectID]}${setLevel}`].dataset.setting = setting;
+        }
+        portalPanel[`${projects[projectID]}goal`].innerText = portalPanel.projectConfigs[projectID].currentLevel;
+    }
+
+    portalPanel.totalnew.innerText = `+ ${totalNew}`;
 }
