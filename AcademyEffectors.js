@@ -371,12 +371,12 @@ let academyEffectorPortal =
                 },
                 {
                     text: 'Academy',
-                    left: 1, top: 22, 
+                    left: 1, top: 25, 
                     height: 3, width: 10
                 },
                 {
                     text: 'Gear',
-                    left: 32, top: 22, 
+                    left: 32, top: 25, 
                     height: 3, width: 6
                 }
             ],
@@ -402,6 +402,11 @@ let academyEffectorPortal =
                     height: 2, width: 1
                 },
                 {
+                    text: 'Evo',
+                    left: 2, top: 20,
+                    height: 2, width: 4
+                },
+                {
                     text: '(2) Perfect Student Blueprint',
                     left: 13, top: 11,
                     height: 2, width: 19
@@ -423,47 +428,47 @@ let academyEffectorPortal =
                 },
                 {
                     text: 'Exodus Exchange: Data Cubes',
-                    left: 2, top: 26,
+                    left: 2, top: 29,
                     height: 2, width: 20
                 },
                 {
                     text: 'Project: Warp-Drive Lab',
-                    left: 2, top: 29,
+                    left: 2, top: 32,
                     height: 2, width: 16
                 },
                 {
                     text: 'Construction Milestones: AP Bonus',
-                    left: 1, top: 32,
+                    left: 1, top: 35,
                     height: 2, width: 24
                 },
                 {
                     text: 'Badge: Engineering',
-                    left: 2, top: 35,
+                    left: 2, top: 38,
                     height: 2, width: 13
                 },
                 {
                     text: 'Campaigns Complete',
-                    left: 1, top: 38,
+                    left: 1, top: 41,
                     height: 2, width: 15
                 },
                 {
                     text: 'Orange',
-                    left: 33, top: 26,
+                    left: 33, top: 29,
                     height: 2, width: 6
                 },
                 {
                     text: 'Red',
-                    left: 33, top: 29,
+                    left: 33, top: 32,
                     height: 2, width: 4
                 },
                 {
                     text: 'Green',
-                    left: 33, top: 32,
+                    left: 33, top: 35,
                     height: 2, width: 5
                 },
                 {
                     text: 'Blue',
-                    left: 33, top: 35,
+                    left: 33, top: 38,
                     height: 2, width: 4
                 }
             ],
@@ -485,6 +490,12 @@ let academyEffectorPortal =
                     type: 'number',
                     left: 9, top: 16.25,
                     height: 2, width: 5
+                },
+                {
+                    id: 'evo',
+                    type: 'number',
+                    left: 7, top: 19.25,
+                    height: 2, width: 3
                 },
                 {
                     id: 'install2',
@@ -513,56 +524,56 @@ let academyEffectorPortal =
                 {
                     id: 'datacubes',
                     type: 'text',
-                    left: 23, top: 25.25,
+                    left: 23, top: 28.25,
                     height: 2, width: 7
                 },
                 {
                     id: 'warpdrive',
                     type: 'number',
-                    left: 19, top: 28.25,
+                    left: 19, top: 31.25,
                     height: 2, width: 4
                 },
                 {
                     id: 'cm',
                     type: 'number',
-                    left: 26, top: 31.25,
+                    left: 26, top: 34.25,
                     height: 2, width: 5
                 },
                 {
                     id: 'orange',
                     type: 'number',
-                    left: 40, top: 25.25,
+                    left: 40, top: 28.25,
                     height: 2, width: 2
                 },
                 {
                     id: 'red',
                     type: 'number',
-                    left: 38, top: 28.25,
+                    left: 38, top: 31.25,
                     height: 2, width: 2
                 },
                 {
                     id: 'green',
                     type: 'number',
-                    left: 39, top: 31.25,
+                    left: 39, top: 34.25,
                     height: 2, width: 2
                 },
                 {
                     id: 'blue',
                     type: 'number',
-                    left: 38, top: 34.25,
+                    left: 38, top: 37.25,
                     height: 2, width: 2
                 },
                 {
                     id: 'campaigns',
                     type: 'number',
-                    left: 17, top: 37.25,
+                    left: 17, top: 40.25,
                     height: 2, width: 3
                 }
             ],
             checkboxes: [
                 {
                     id: 'engineering',
-                    left: 16, top: 34.25,
+                    left: 16, top: 37.25,
                     width: 2, height: 2
                 }
             ],
@@ -896,6 +907,7 @@ academyEffectorPortal.pages.zeus.dataLinkage =
 {
     set crew(value) { playerData.fleet.zeus.crew = value; },
     set rank(value) { playerData.fleet.zeus.rank.current = value; },
+    set evo(value) { playerData.fleet.zeus.evo = value; },
     set progress(value) { playerData.fleet.zeus.rank.progress = value; },
     set install2(value) { playerData.fleet.zeus.installs[1] = value; },
     set install3(value) { playerData.fleet.zeus.installs[2] = value; },
@@ -913,6 +925,7 @@ academyEffectorPortal.pages.zeus.dataLinkage =
 
     get crew() { return playerData.fleet.zeus.crew; },
     get rank() { return playerData.fleet.zeus.rank.current; },
+    get evo() { return playerData.fleet.zeus.evo; },
     get progress() { return playerData.fleet.zeus.rank.progress; },
     get install2() { return playerData.fleet.zeus.installs[1]; },
     get install3() { return playerData.fleet.zeus.installs[2]; },
