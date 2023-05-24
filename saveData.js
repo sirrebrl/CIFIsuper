@@ -7,6 +7,7 @@ PLAYER DATA CHANGE LOG
 const blankPlayer =
 {
     version: 8, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    activePortal: 'academyEffector',
     level: 0, // Player level
     timing:
     {
