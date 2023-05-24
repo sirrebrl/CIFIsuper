@@ -1,5 +1,7 @@
 // General installation of navigation bar
 
+const online = true;
+
 const navHeight = 0.1;
 
 const navBar = document.createElement('div');
@@ -23,6 +25,7 @@ const navButtons = [];
 //     createNavButton('upgrades-auto', "Automation", 'rgba(255, 255, 255, 1)', 'upgrades'); // 5
 //     createNavButton('upgrades-shards', "Shards", 'rgba(255, 255, 255, 1)', 'upgrades'); // 6
 //     createNavButton('upgrades-research', "Research", 'rgba(255, 255, 255, 1)', 'upgrades'); // 7
+createNavButton('update', "Up to Date", 'rgba(255, 255, 255, 1)');
 createNavButton('academy', "Academy", 'rgba(255, 255, 255, 1)'); // 8
     createNavButton('academy-effectors', "Effectors", 'rgba(255, 255, 255, 1)', 'academy'); // 9
     createNavButton('academy-farms', "Farms", 'rgba(255, 255, 255, 1)', 'academy'); // 9
@@ -58,7 +61,13 @@ const navDim =
     height: window.innerHeight
 };
 
-let activePortal = academyEffectorPortal;
+let portals = {
+    academyEffector: academyEffectorPortal,
+    academyFarm: academyFarmPortal,
+    academyProject: academyProjectPortal
+};
+playerData.activePortal = playerData.activePortal || 'academyEffector';
+let activePortal = portals[playerData.activePortal];
 
 function createNavButton(panel, text, color, parent = null)
 {
@@ -335,24 +344,56 @@ function navigatePanel(e)
     { 
         destroyPortal(); 
         activePortal = academyEffectorPortal;
+        playerData.activePortal = 'academyEffector';
         ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
     }
     else if (targetPanel.includes('academy-farms'))
     { 
         destroyPortal(); 
         activePortal = academyFarmPortal;
+        playerData.activePortal = 'academyFarm';
         ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
     }
     else if (targetPanel.includes('academy-projects'))
     { 
         destroyPortal(); 
         activePortal = academyProjectPortal;
+        playerData.activePortal = 'academyProject';
         ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
+    }
+    else if (targetPanel.includes('update'))
+    {
+        location.reload();
     }
     
     setTimeout(reDim, 50);
 }
 
+function checkUpdate()
+{
+    let outOfDate = false;
+
+    fetch('/version.json')
+        .then(response => response.json())
+        .then(data => {
+            var latestVersion = data.version;
+            if (latestVersion > GameDB.version) { outOfDate = true; pushUpdate(); }
+        })
+        .catch(error => {
+            console.error('Error fetching latest version:', error);
+            outOfDate = true;
+            pushUpdate(false);
+        });
+
+    if (!outOfDate) setTimeout(checkUpdate, 300000);
+}
+
+function pushUpdate(newVersion = true)
+{
+    navButtons[0].elem.innerText = (newVersion ? 'Refresh to Update' : 'Update Error');
+}
+
 // Ensuring everything is properly sized to the window after allowing everything to load
 setTimeout(reDim, 100);
+if (online) setTimeout(checkUpdate, 300000);
 window.addEventListener('resize', reDim);
