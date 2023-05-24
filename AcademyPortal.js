@@ -359,12 +359,12 @@ class ProjectConfig
     if (GameDB.bugs.construction)
     {
         costDiv = (playerData.research.construction[0] > 1 ? 1.5 : 1) * (playerData.research.construction[0] > 5 ? 2 : 1) * (playerData.research.construction[0] > 5 ? 2.5 : 1);
-        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 5 ? 3 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);
+        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 2 ? 3 : 1) * (playerData.research.construction[1] > 3 ? 3 : 1) * (playerData.research.construction[1] > 4 ? 4 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);
     }
     else
     {
         costDiv = (playerData.research.construction[0] > 1 ? 1.5 : 1) * (playerData.research.construction[0] > 3 ? 2 : 1) * (playerData.research.construction[0] > 5 ? 2.5 : 1);
-        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 3 ? 3 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);    
+        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 2 ? 3 : 1) * (playerData.research.construction[1] > 3 ? 3 : 1) * (playerData.research.construction[1] > 4 ? 4 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);
     }
 
     let accumCosts = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -411,12 +411,12 @@ class ProjectConfig
     if (GameDB.bugs.construction)
     {
         costDiv = (playerData.research.construction[0] > 1 ? 1.5 : 1) * (playerData.research.construction[0] > 5 ? 2 : 1) * (playerData.research.construction[0] > 5 ? 2.5 : 1);
-        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 5 ? 3 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);
+        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 2 ? 3 : 1) * (playerData.research.construction[1] > 3 ? 3 : 1) * (playerData.research.construction[1] > 4 ? 4 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);
     }
     else
     {
         costDiv = (playerData.research.construction[0] > 1 ? 1.5 : 1) * (playerData.research.construction[0] > 3 ? 2 : 1) * (playerData.research.construction[0] > 5 ? 2.5 : 1);
-        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 3 ? 3 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);    
+        costDiv *= (playerData.research.construction[1] > 1 ? 2 : 1) * (playerData.research.construction[1] > 2 ? 3 : 1) * (playerData.research.construction[1] > 3 ? 3 : 1) * (playerData.research.construction[1] > 4 ? 4 : 1) * (playerData.research.construction[1] > 5 ? 4 : 1);
     }
 
     let accumCosts = [0, 0, 0, 0, 0, 0, 0, 0];
