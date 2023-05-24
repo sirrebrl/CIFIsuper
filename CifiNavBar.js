@@ -373,7 +373,7 @@ function checkUpdate()
 {
     let outOfDate = false;
 
-    fetch('/version.json')
+    fetch('version.json')
         .then(response => response.json())
         .then(data => {
             var latestVersion = data.version;
@@ -395,5 +395,5 @@ function pushUpdate(newVersion = true)
 
 // Ensuring everything is properly sized to the window after allowing everything to load
 setTimeout(reDim, 100);
-if (online) setTimeout(checkUpdate, 300000);
+if (online) setTimeout(checkUpdate, 3000);
 window.addEventListener('resize', reDim);
