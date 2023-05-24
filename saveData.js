@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 7, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 8, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     level: 0, // Player level
     timing:
     {
@@ -24,6 +24,7 @@ const blankPlayer =
         koios: {},
         zeus:
         {
+            evo: 0,
             rank: {current: 0, progress: 0, goal: 1},
             freePoints: 0,
             crew: 0,
@@ -302,6 +303,11 @@ function UpdatePlayerData()
     {
         playerData.academy.campaignsComplete = 0;
         playerData.version = 7;
+    }
+    if (playerData.version < 8)
+    {
+        playerData.fleet.zeus.evo = 0;
+        playerData.version = 8;
     }
     SavePlayerData();
 }
