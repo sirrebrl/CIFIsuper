@@ -2,11 +2,11 @@ let GameDB =
 {
     bugs:
     {
-        destruction: true,
-        wonderous: true,
-        swarm: true,
-        mission3: true,
-        construction: true
+        destruction: false,
+        wonderous: false,
+        swarm: false,
+        mission3: false,
+        construction: false
     },
     academy:
     {
