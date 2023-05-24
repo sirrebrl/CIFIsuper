@@ -345,6 +345,7 @@ function navigatePanel(e)
         destroyPortal(); 
         activePortal = academyEffectorPortal;
         playerData.activePortal = 'academyEffector';
+        savePlayerData();
         ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
     }
     else if (targetPanel.includes('academy-farms'))
@@ -352,6 +353,7 @@ function navigatePanel(e)
         destroyPortal(); 
         activePortal = academyFarmPortal;
         playerData.activePortal = 'academyFarm';
+        savePlayerData();
         ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
     }
     else if (targetPanel.includes('academy-projects'))
@@ -359,6 +361,7 @@ function navigatePanel(e)
         destroyPortal(); 
         activePortal = academyProjectPortal;
         playerData.activePortal = 'academyProject';
+        savePlayerData();
         ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
     }
     else if (targetPanel.includes('update'))
