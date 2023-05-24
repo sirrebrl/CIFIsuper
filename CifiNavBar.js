@@ -385,7 +385,7 @@ function checkUpdate()
             pushUpdate(false);
         });
 
-    if (!outOfDate) setTimeout(checkUpdate, 300000);
+    if (!outOfDate) setTimeout(checkUpdate, 600000);
 }
 
 function pushUpdate(newVersion = true)
