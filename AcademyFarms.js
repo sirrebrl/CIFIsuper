@@ -1,7 +1,7 @@
 let academyFarmPortal =
 {
-    verticalCells: 55,
-    horizontalCells: 110,
+    verticalCells: 58,
+    horizontalCells: 116,
     headerText: 1.8,
     labelText: 0.9,
     displayText: 1.4,
@@ -66,27 +66,27 @@ let academyFarmPortal =
                 },
                 {
                     text: 'pod',
-                    left: 39, top: 5,
+                    left: 42, top: 5,
                     height: 2, width: 4
                 },
                 {
                     text: 'fire',
-                    left: 44, top: 5,
+                    left: 47, top: 5,
                     height: 2, width: 4
                 },
                 {
                     text: 'titan',
-                    left: 49, top: 5,
+                    left: 52, top: 5,
                     height: 2, width: 4
                 },
                 {
                     text: 'corv',
-                    left: 54, top: 5,
+                    left: 57, top: 5,
                     height: 2, width: 4
                 },
                 {
                     text: 'run time',
-                    left: 59, top: 5,
+                    left: 62, top: 5,
                     height: 2, width: 6
                 },
                 {
@@ -136,77 +136,77 @@ let academyFarmPortal =
                 },
                 {
                     text: 'average gains per',
-                    left: 70, top: 1,
+                    left: 72, top: 1,
                     height: 2, width: 12
                 },
                 {
                     text: 'averaged over',
-                    left: 70, top: 4,
+                    left: 72, top: 4,
                     height: 2, width: 11
                 },
                 {
                     text: 'stock',
-                    left: 80, top: 7,
+                    left: 82, top: 7,
                     height: 2, width: 7
                 },
                 {
                     text: 'gain rate',
-                    left: 89, top: 7,
+                    left: 91, top: 7,
                     height: 2, width: 7
                 },
                 {
                     text: 'yield',
-                    left: 96, top: 7,
+                    left: 98, top: 7,
                     height: 2, width: 7
                 },
                 {
                     text: 'missions',
-                    left: 74, top: 10,
+                    left: 76, top: 10,
                     height: 2, width: 4
                 },
                 {
                     text: 'AP',
-                    left: 73, top: 13,
+                    left: 75, top: 13,
                     height: 2, width: 7
                 },
                 {
                     text: 'difar',
-                    left: 76, top: 16,
+                    left: 78, top: 16,
                     height: 2, width: 4
                 },
                 {
                     text: 'kento',
-                    left: 75, top: 19,
+                    left: 77, top: 19,
                     height: 2, width: 5
                 },
                 {
                     text: 'chromium',
-                    left: 73, top: 22,
+                    left: 75, top: 22,
                     height: 2, width: 7
                 },
                 {
                     text: 'exon',
-                    left: 76, top: 25,
+                    left: 78, top: 25,
                     height: 2, width: 4
                 },
                 {
                     text: 'organium',
-                    left: 73, top: 28,
+                    left: 75, top: 28,
                     height: 2, width: 7
                 },
                 {
                     text: 'adamorphium',
-                    left: 70, top: 31,
+                    left: 72, top: 31,
                     height: 2, width: 10
                 },
                 {
                     text: 'moskom',
-                    left: 74, top: 34,
+                    left: 76, top: 34,
                     height: 2, width: 6
                 },
                 {
                     text: 'darkseid',
-                    left: 74, top: 37,
+                    left: 76, top: 37,
                     height: 2, width: 6
                 }
             ],
@@ -262,61 +262,61 @@ let academyFarmPortal =
                 {
                     id: 'duration',
                     type: 'number',
-                    left: 82, top: 3.25,
+                    left: 84, top: 3.25,
                     width: 5, height: 2
                 },
                 {
                     id: 'ap',
                     type: 'text',
-                    left: 81, top: 12.25,
+                    left: 83, top: 12.25,
                     width: 7, height: 2
                 },
                 {
                     id: 'difar',
                     type: 'text',
-                    left: 81, top: 15.25,
+                    left: 83, top: 15.25,
                     width: 7, height: 2
                 },
                 {
                     id: 'kento',
                     type: 'text',
-                    left: 81, top: 18.25,
+                    left: 83, top: 18.25,
                     width: 7, height: 2
                 },
                 {
                     id: 'chromium',
                     type: 'text',
-                    left: 81, top: 21.25,
+                    left: 83, top: 21.25,
                     width: 7, height: 2
                 },
                 {
                     id: 'exon',
                     type: 'text',
-                    left: 81, top: 24.25,
+                    left: 83, top: 24.25,
                     width: 7, height: 2
                 },
                 {
                     id: 'organium',
                     type: 'text',
-                    left: 81, top: 27.25,
+                    left: 83, top: 27.25,
                     width: 7, height: 2
                 },
                 {
                     id: 'adamorphium',
                     type: 'text',
-                    left: 81, top: 30.25,
+                    left: 83, top: 30.25,
                     width: 7, height: 2
                 },
                 {
                     id: 'moskom',
                     type: 'text',
-                    left: 81, top: 33.25,
+                    left: 83, top: 33.25,
                     width: 7, height: 2
                 },
                 {
                     id: 'darkseid',
                     type: 'text',
-                    left: 81, top: 36.25,
+                    left: 83, top: 36.25,
                     width: 7, height: 2
                 }
             ],
@@ -331,107 +331,107 @@ let academyFarmPortal =
                 },
                 {
                     id: 'yieldtimeco',
-                    left: 88, top: 3.75,
+                    left: 90, top: 3.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'missionrate',
-                    left: 90, top: 9.75,
+                    left: 92, top: 9.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'aprate',
-                    left: 90, top: 12.75,
+                    left: 92, top: 12.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'difarrate',
-                    left: 90, top: 15.75,
+                    left: 92, top: 15.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'kentorate',
-                    left: 90, top: 18.75,
+                    left: 92, top: 18.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'chromiumrate',
-                    left: 90, top: 21.75,
+                    left: 92, top: 21.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'exonrate',
-                    left: 90, top: 24.75,
+                    left: 92, top: 24.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'organiumrate',
-                    left: 90, top: 27.75,
+                    left: 92, top: 27.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'adamorphiumrate',
-                    left: 90, top: 30.75,
+                    left: 92, top: 30.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'moskomrate',
-                    left: 90, top: 33.75,
+                    left: 92, top: 33.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'darkseidrate',
-                    left: 90, top: 36.75,
+                    left: 92, top: 36.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'missionyield',
-                    left: 99, top: 9.75,
+                    left: 101, top: 9.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'apyield',
-                    left: 99, top: 12.75,
+                    left: 101, top: 12.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'difaryield',
-                    left: 99, top: 15.75,
+                    left: 101, top: 15.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'kentoyield',
-                    left: 99, top: 18.75,
+                    left: 101, top: 18.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'chromiumyield',
-                    left: 99, top: 21.75,
+                    left: 101, top: 21.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'exonyield',
-                    left: 99, top: 24.75,
+                    left: 101, top: 24.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'organiumyield',
-                    left: 99, top: 27.75,
+                    left: 101, top: 27.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'adamorphiumyield',
-                    left: 99, top: 30.75,
+                    left: 101, top: 30.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'moskomyield',
-                    left: 99, top: 33.75,
+                    left: 101, top: 33.75,
                     height: 2, width: 7
                 },
                 {
                     id: 'darkseidyield',
-                    left: 99, top: 36.75,
+                    left: 101, top: 36.75,
                     height: 2, width: 7
                 }
             ],
@@ -441,6 +441,12 @@ let academyFarmPortal =
                     left: 38, top: 35,
                     width: 23, height: 3,
                     function: maximizeMissionRate
+                },
+                {
+                    text: 'Clear Missions',
+                    left: 38, top: 42,
+                    width: 23, height: 2,
+                    function: clearMissions
                 }
             ],
             toggles: [
@@ -460,10 +466,11 @@ let academyFarmPortal =
                             color: '#8888FF'
                         }
                     ],
-                    left: 83, top: 0.5,
+                    left: 85, top: 0.5,
                     width: 8, height: 2
                 }
-            ]
+            ],
+            lockboxes: []
         }
     }
 };
@@ -475,7 +482,7 @@ for (let farmNum = 0; farmNum < GameDB.academy.farms.length; farmNum++)
     let farm = farmNum - (planet * 3);
     let personnel = GameDB.academy.personnel;
 
-    let initLeft = 40;
+    let initLeft = 43;
     let stepLeft = 5;
     let initTop = 7.25;
     let stepTop = 3;
@@ -488,10 +495,18 @@ for (let farmNum = 0; farmNum < GameDB.academy.farms.length; farmNum++)
     };
     academyFarmPortal.pages.default.displays.push(farmPopObj);
 
+    let farmLockObj =
+    {
+        id: `farm${planet}${farm}lock`,
+        left: 40, top: initTop + (farmNum * stepTop),
+        width: 2, height: 2
+    };
+    academyFarmPortal.pages.default.lockboxes.push(farmLockObj);
+
     let farmTimeObj =
     {
         id: `farm${planet}${farm}time`,
-        left: 61, top: initTop + (farmNum * stepTop) + 0.5,
+        left: 64, top: initTop + (farmNum * stepTop) + 0.5,
         width: 8, height: 2
     };
     academyFarmPortal.pages.default.displays.push(farmTimeObj);
@@ -597,6 +612,16 @@ for (let planet = 0; planet < GameDB.academy.planets; planet++)
                 return playerData.academy.farms[planet][farm].corvettes;
             }
         });
+
+        propertyName = `farm${planet}${farm}lock`;
+        Object.defineProperty(academyFarmPortal.pages.default.dataLinkage, propertyName, {
+            set : function (value) {
+                playerData.academy.farms[planet][farm].locked = value;
+            },
+            get : function () {
+                return playerData.academy.farms[planet][farm].locked;
+            }
+        });
     }
 }
 
@@ -612,6 +637,13 @@ academyFarmPortal.pages.default.initFunction = function()
 
 academyFarmPortal.pages.default.updateFunction = function(e)
 {
+    if (e.target.id.includes('lock'))
+    {
+        portalPanel.dataLinkage[e.target.id] = e.target.checked;
+        SavePlayerData();
+        return;
+    }
+
     if (e.target.id.includes('power') || e.target.id.includes('duration'))
     {
         portalPanel.dataLinkage[e.target.id] = parseFloat(e.target.value);
@@ -712,6 +744,28 @@ function maximizeMissionRate()
         }
     }
 
+    populateYield();
+    PopulateTiming();
+}
+
+function clearMissions()
+{
+    for (let planet = 0; planet < GameDB.academy.planets; planet++)
+    {
+        for (let farm = 0; farm < 3; farm++)
+        {
+            if (playerData.academy.farms[planet][farm].locked) continue;
+
+            for (let personnel = 0; personnel < 4; personnel++)
+            {
+                let type = GameDB.academy.personnel[personnel];
+                portalPanel.dataLinkage[`farm${planet}${farm}${type}`] = 0;
+                portalPanel[`farm${planet}${farm}${type}`].value = 0;
+            }
+        }
+    }
+
+    SavePlayerData();
     populateYield();
     PopulateTiming();
 }
