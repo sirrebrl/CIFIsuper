@@ -181,6 +181,36 @@ function ConstructPortal(height, width, portalObj)
         portalPanel[toggle.id] = newElem;
     });
 
+    if (activePage.lockboxes)
+    {
+        activePage.lockboxes.forEach(lockbox => {
+            let newContainer = document.createElement('label');
+            portalPanel.elem.appendChild(newContainer);
+            newContainer.classList.add(`lockcontainer`);
+            newContainer.style.left = `${cellSize * lockbox.left}px`;
+            newContainer.style.top = `${cellSize * lockbox.top}px`;
+            newContainer.style.width = `${cellSize * lockbox.width}px`;
+            newContainer.style.height = `${cellSize * lockbox.height}px`;
+    
+            let newLockbox = document.createElement('input');
+            newContainer.appendChild(newLockbox);
+            newLockbox.type = 'checkbox';
+            newLockbox.id = lockbox.id;
+            newLockbox.style.width = `0px`;
+            newLockbox.style.height = `0px`;
+    
+            newLockbox.checked = portalPanel.dataLinkage[lockbox.id];
+    
+            newLockbox.addEventListener('change', portalPanel.updateFunction);
+    
+            let newLockmark = document.createElement('span');
+            newContainer.appendChild(newLockmark);
+            newLockmark.classList.add('lockmark');
+            newLockmark.style.width = `${cellSize * lockbox.width}px`;
+            newLockmark.style.height = `${cellSize * lockbox.height}px`;
+        })
+    }
+
     if (portalPanel.initFunction) { portalPanel.initFunction(); }
 
     // portalPanel['rankrequirement'].innerText = GameDB.fleet.zeus.rankRequirements[academyDataLinkage.rankcurrent];
@@ -356,6 +386,8 @@ function setPanelCSS(portalObj)
 
     newStyleSheet.insertRule(`${selector} { ${properties} }`);
 
+    // CHECKBOXES
+
     selector = '.checkcontainer';
     properties =
     [
@@ -430,6 +462,96 @@ function setPanelCSS(portalObj)
     properties =
     [
         'content: "✔️";\n',
+        'display: block;\n'
+    ].join('');
+
+    newStyleSheet.insertRule(`${selector} { ${properties} }`);
+
+    // LOCKBOXES
+
+    selector = '.lockcontainer';
+    properties =
+    [
+        'position: absolute;\n',
+        'padding: 0px;\n'
+    ].join('');
+
+    newStyleSheet.insertRule(`${selector} { ${properties} }`);
+
+    selector = '.lockcontainer input';
+    properties =
+    [
+        'position: absolute;\n',
+        'padding: 0px;\n',
+        'opacity: 0;\n',
+        'height: 0px;\n',
+        'width: 0px;\n'
+    ].join('');
+
+    newStyleSheet.insertRule(`${selector} { ${properties} }`);
+
+    selector = '.lockmark';
+    properties =
+    [
+        'position: absolute;\n',
+        'top: 0px;\n',
+        'left: 0px;\n',
+        'text-align: center;\n',
+        `line-height: ${Math.round(cellSize * 2)}px;\n`,
+        `box-shadow: 0px 0px ${Math.round(cellSize / 5)}px #444444, inset 0px 0px ${Math.round(cellSize / 10)}px #444444;\n`,
+        'background-color: #222222;\n'
+    ].join('');
+
+    newStyleSheet.insertRule(`${selector} { ${properties} }`);
+
+    selector = '.lockcontainer:hover input ~ .lockmark';
+    properties =
+    [
+        `box-shadow: 0px 0px ${Math.round(cellSize)}px #2222FF, inset 0px 0px ${Math.round(cellSize)}px #2222FF;\n`
+    ].join('');
+
+    newStyleSheet.insertRule(`${selector} { ${properties} }`);
+
+    selector = '.lockcontainer:hover input:checked ~ .lockmark';
+    properties =
+    [
+        `box-shadow: 0px 0px ${Math.round(cellSize)}px #FF2222, inset 0px 0px ${Math.round(cellSize)}px #FF2222;\n`
+    ].join('');
+
+    newStyleSheet.insertRule(`${selector} { ${properties} }`);
+
+    selector = '.lockcontainer input:checked ~ .lockmark';
+    properties =
+    [
+        // 'background-color: #885588;\n',
+        'background-color: #000000;\n',
+        `box-shadow: 0px 0px ${Math.round(cellSize / 5)}px #AA22AA, inset 0px 0px ${Math.round(cellSize)}px #AA22AA;\n`
+    ].join('');
+
+    newStyleSheet.insertRule(`${selector} { ${properties} }`);
+
+    selector = '.lockmark:after';
+    properties =
+    [
+        'content: "";\n',
+        'display: none;\n'
+    ].join('');
+
+    newStyleSheet.insertRule(`${selector} { ${properties} }`);
+
+    selector = '.lockcontainer input:not(checked) ~ .lockmark:after';
+    properties =
+    [
+        'content: "🔓";\n',
+        'display: block;\n'
+    ].join('');
+
+    newStyleSheet.insertRule(`${selector} { ${properties} }`);
+
+    selector = '.lockcontainer input:checked ~ .lockmark:after';
+    properties =
+    [
+        'content: "🔒";\n',
         'display: block;\n'
     ].join('');
 
