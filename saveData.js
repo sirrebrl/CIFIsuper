@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 8, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 9, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     activePortal: 'academyEffector',
     level: 0, // Player level
     timing:
@@ -140,19 +140,22 @@ const blankPlayer =
                     pods: 0,
                     fireteams: 0,
                     titans: 0,
-                    corvettes: 0
+                    corvettes: 0,
+                    locked: false
                 },
                 { // Farm 1-2
                     pods: 0,
                     fireteams: 0,
                     titans: 0,
-                    corvettes: 0
+                    corvettes: 0,
+                    locked: false
                 },
                 { // Farm 1-3
                     pods: 0,
                     fireteams: 0,
                     titans: 0,
-                    corvettes: 0
+                    corvettes: 0,
+                    locked: false
                 }
             ],
             [ // Planet 2
@@ -160,19 +163,22 @@ const blankPlayer =
                     pods: 0,
                     fireteams: 0,
                     titans: 0,
-                    corvettes: 0
+                    corvettes: 0,
+                    locked: false
                 },
                 { // Farm 2-2
                     pods: 0,
                     fireteams: 0,
                     titans: 0,
-                    corvettes: 0
+                    corvettes: 0,
+                    locked: false
                 },
                 { // Farm 2-3
                     pods: 0,
                     fireteams: 0,
                     titans: 0,
-                    corvettes: 0
+                    corvettes: 0,
+                    locked: false
                 }
             ],
             [ // Planet 3
@@ -180,19 +186,22 @@ const blankPlayer =
                     pods: 0,
                     fireteams: 0,
                     titans: 0,
-                    corvettes: 0
+                    corvettes: 0,
+                    locked: false
                 },
                 { // Farm 3-2
                     pods: 0,
                     fireteams: 0,
                     titans: 0,
-                    corvettes: 0
+                    corvettes: 0,
+                    locked: false
                 },
                 { // Farm 3-3
                     pods: 0,
                     fireteams: 0,
                     titans: 0,
-                    corvettes: 0
+                    corvettes: 0,
+                    locked: false
                 }
             ]
         ],
@@ -309,6 +318,17 @@ function UpdatePlayerData()
     {
         playerData.fleet.zeus.evo = 0;
         playerData.version = 8;
+    }
+    if (playerData.version < 9)
+    {
+        for (let planet = 0; planet < playerData.academy.farms.length; planet++)
+        {
+            for (let farm = 0; farm < 3; farm++)
+            {
+                playerData.academy.farms[planet][farm].locked = false;
+            }
+        }
+        playerData.version = 9;
     }
     SavePlayerData();
 }
