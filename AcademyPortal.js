@@ -68,7 +68,6 @@ function CalculateFarmTimes(getRawTime = false)
 function GetMaxMissionRate()
 {
     let farms = [...GameDB.academy.farms];
-    farms.sort((a,b) => {return a.baseTime - b.baseTime;} );
 
     let missionSpeedBonus = (GameDB.bugs.swarm ? (0.03 * playerData.loopMods.swarm + 1) : Math.pow(1.0311, playerData.loopMods.swarm));
     missionSpeedBonus *= (
@@ -108,64 +107,95 @@ function GetMaxMissionRate()
         }
     ];
 
-    farms.forEach(farm =>
+    let farmDetails = [];
+
+    for (let planet = 0; planet < GameDB.academy.planets; planet++)
+    {
+        for (let farm = 0; farm < 3; farm++)
         {
-            if (farm.id === 32)
+            let farmSpecs =
             {
-                playerData.academy.farms[2][1].pods = 0;
-                playerData.academy.farms[2][1].fireteams = 0;
-                playerData.academy.farms[2][1].titans = 0;
-                playerData.academy.farms[2][1].corvettes = 0;
+                id: farms[planet * 3 + farm].id,
+                locked: false,
+                maxPop: farms[planet * 3 + farm].maxPop,
+                currentPop: 0,
+                popDistro: [0, 0, 0, 0],
+                power: 0,
+                baseTime: farms[planet * 3 + farm].baseTime / missionSpeedBonus,
+                get availSpace() { return this.maxPop - this.currentPop; },
+                get timeLimitPassed() { return !((this.power === 0) || ((this.baseTime * 60 / this.power) >= 2)); }
+            };
+
+            if (playerData.academy.farms[planet][farm].locked)
+            {
+                farmSpecs.locked = true;
+
+                farmSpecs.popDistro =
+                [
+                    playerData.academy.farms[planet][farm].pods,
+                    playerData.academy.farms[planet][farm].fireteams,
+                    playerData.academy.farms[planet][farm].titans,
+                    playerData.academy.farms[planet][farm].corvettes
+                ];
+                farmSpecs.power = playerData.academy.farms[planet][farm].pods * playerData.academy.personnel[0].power;
+                farmSpecs.power += playerData.academy.farms[planet][farm].fireteams * playerData.academy.personnel[1].power;
+                farmSpecs.power += playerData.academy.farms[planet][farm].titans * playerData.academy.personnel[2].power;
+                farmSpecs.power += playerData.academy.farms[planet][farm].corvettes * playerData.academy.personnel[3].power;
+
+                personnel[3].usedPop += playerData.academy.farms[planet][farm].pods;
+                personnel[2].usedPop += playerData.academy.farms[planet][farm].fireteams;
+                personnel[1].usedPop += playerData.academy.farms[planet][farm].titans;
+                personnel[0].usedPop += playerData.academy.farms[planet][farm].corvettes;
             }
-            else
+
+            farmDetails.push(farmSpecs);
+        }
+    }
+
+    console.table(personnel);
+    console.log(farmDetails);
+
+    farmDetails.sort((a,b) => a.baseTime - b.baseTime);
+
+    for (let i = 0; i < farmDetails.length; i++)
+    {
+        if (farmDetails[i].locked) continue;
+
+        let planet = Math.floor(farmDetails[i].id / 10);
+        let farmNum = farmDetails[i].id - (planet * 10);
+
+        playerData.academy.farms[planet - 1][farmNum - 1].pods = 0;
+        playerData.academy.farms[planet - 1][farmNum - 1].fireteams = 0;
+        playerData.academy.farms[planet - 1][farmNum - 1].titans = 0;
+        playerData.academy.farms[planet - 1][farmNum - 1].corvettes = 0;
+
+        for (let personnelNum = 0; personnelNum < 4; personnelNum++)
+        {
+            let populate = Math.min(farmDetails[i].availSpace, personnel[personnelNum].availPop);
+            farmDetails[i].currentPop += populate;
+            farmDetails[i].power += populate * personnel[personnelNum].power;
+            personnel[personnelNum].usedPop += populate;
+            playerData.academy.farms[planet - 1][farmNum - 1][GameDB.academy.personnel[3-personnelNum]] += populate;
+
+            while (farmDetails[i].timeLimitPassed)
             {
-                let planet = Math.floor(farm.id / 10);
-                let farmNum = farm.id - (planet * 10);
+                farmDetails[i].currentPop--;
+                farmDetails[i].power -= personnel[personnelNum].power;
 
-                playerData.academy.farms[planet - 1][farmNum - 1].pods = 0;
-                playerData.academy.farms[planet - 1][farmNum - 1].fireteams = 0;
-                playerData.academy.farms[planet - 1][farmNum - 1].titans = 0;
-                playerData.academy.farms[planet - 1][farmNum - 1].corvettes = 0;
-
-                let farmSpecs =
+                if (!farmDetails[i].timeLimitPassed && personnelNum === 3)
                 {
-                    maxPop: farm.maxPop,
-                    currentPop: 0,
-                    popDistro: [0, 0, 0, 0],
-                    power: 0,
-                    baseTime: farm.baseTime / missionSpeedBonus,
-                    get availSpace() { return this.maxPop - this.currentPop; },
-                    get timeLimitPassed() { return !((this.power === 0) || ((this.baseTime * 60 / this.power) >= 2)); }
+                    farmDetails[i].currentPop++;
+                    farmDetails[i].power += personnel[personnelNum].power;
+                    break;
                 }
 
-                for (let personnelNum = 0; personnelNum < 4; personnelNum++)
-                {
-                    let populate = Math.min(farmSpecs.availSpace, personnel[personnelNum].availPop);
-                    farmSpecs.currentPop += populate;
-                    farmSpecs.power += populate * personnel[personnelNum].power;
-                    personnel[personnelNum].usedPop += populate;
-                    playerData.academy.farms[planet - 1][farmNum - 1][GameDB.academy.personnel[3-personnelNum]] += populate;
-
-                    while (farmSpecs.timeLimitPassed)
-                    {
-                        farmSpecs.currentPop--;
-                        farmSpecs.power -= personnel[personnelNum].power;
-
-                        if (!farmSpecs.timeLimitPassed && personnelNum === 3)
-                        {
-                            farmSpecs.currentPop++;
-                            farmSpecs.power += personnel[personnelNum].power;
-                            break;
-                        }
-
-                        personnel[personnelNum].usedPop--;
-                        playerData.academy.farms[planet - 1][farmNum - 1][GameDB.academy.personnel[3-personnelNum]]--;
-                    }
-
-                    if (farmSpecs.availSpace === 0) break;
-                }
+                personnel[personnelNum].usedPop--;
+                playerData.academy.farms[planet - 1][farmNum - 1][GameDB.academy.personnel[3-personnelNum]]--;
             }
-        });
+
+            if (farmDetails[i].availSpace === 0) break;
+        }
+    }
 
     SavePlayerData();
 }
