@@ -239,6 +239,7 @@ academyProjectPortal.pages.default.dataLinkage =
 academyProjectPortal.pages.default.initFunction = function()
 {
     let cellSize = portalPanel.height / academyProjectPortal.verticalCells;
+    let colorProfile = playerData.colorProfile.academyProjects;
 
     academyProjectPortal.pages.default.setters.forEach(setter => {
         let newElem = document.createElement('label');
@@ -272,8 +273,8 @@ academyProjectPortal.pages.default.initFunction = function()
         selector = `.setter[data-setting="${j}"]`;
         properties =
         [
-            `text-shadow: 0px 0px ${Math.round(cellSize * academyProjectPortal.labelText / 9)}px ${initSetter.settings[j].color};\n`,
-            `box-shadow: 0px 0px ${Math.round(cellSize / 5)}px ${initSetter.settings[j].color}, inset 0px 0px ${Math.round(cellSize)}px ${initSetter.settings[j].color};\n`
+            `text-shadow: 0px 0px ${Math.round(cellSize * academyProjectPortal.labelText / 9)}px ${colorProfile[j]};\n`,
+            `box-shadow: 0px 0px ${Math.round(cellSize / 5)}px ${colorProfile[j]}, inset 0px 0px ${Math.round(cellSize)}px ${colorProfile[j]};\n`
         ].join('');
 
         portalPanel.panelCSS.sheet.insertRule(`${selector} { ${properties} }`);
