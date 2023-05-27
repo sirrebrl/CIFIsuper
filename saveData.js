@@ -6,8 +6,13 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 9, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 10, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     activePortal: 'academyEffector',
+    colorProfile: {
+        academyProjects: [
+            '#444444', '#CCCC44', '#44CC44', '#4444CC'
+        ]
+    },
     level: 0, // Player level
     timing:
     {
@@ -329,6 +334,15 @@ function UpdatePlayerData()
             }
         }
         playerData.version = 9;
+    }
+    if (playerData.version < 10)
+    {
+        playerData.colorProfile = {
+            academyProjects: [
+                '#444444', '#CCCC44', '#44CC44', '#4444CC'
+            ]
+        };
+        playerData.version = 10;
     }
     SavePlayerData();
 }
