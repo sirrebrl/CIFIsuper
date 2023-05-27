@@ -1,6 +1,6 @@
 let GameDB =
 {
-    version: 1.3,
+    version: 2,
     bugs:
     {
         destruction: false,
