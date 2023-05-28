@@ -180,8 +180,7 @@ function openDefaultPanel()
 // Adjusting all sizes and positions according to window size when window is resizes
 function reDim()
 {
-//     if (pauseResizing) return;
-//     if (onMobile) pauseResizing = true;
+    if (pauseResizing) return;
 
     navDim.width = window.innerWidth;
     navDim.height = window.innerHeight * navHeight;
@@ -214,6 +213,8 @@ function reDim()
     ConstructPortal(window.innerHeight - navDim.height, navDim.width, activePortal);
 
     deHighlight();
+    
+    if (onMobile) pauseResizing = true;
 }
 
 let activeNavLink = null;
@@ -385,7 +386,7 @@ function navigatePanel(e)
         location.reload(true);
     }
     
-//     pauseResizing = false;
+    pauseResizing = false;
     setTimeout(reDim, 50);
 }
 
