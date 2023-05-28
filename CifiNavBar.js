@@ -1,6 +1,6 @@
 // General installation of navigation bar
 
-const online = false;
+const online = true;
 
 let onMobile = false;
 let pauseResizing = false;
@@ -385,6 +385,7 @@ function navigatePanel(e)
         location.reload();
     }
     
+    pauseResizing = false;
     setTimeout(reDim, 50);
 }
 
