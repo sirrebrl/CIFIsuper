@@ -1,6 +1,9 @@
 // General installation of navigation bar
 
-const online = true;
+const online = false;
+
+let onMobile = false;
+let pauseResizing = false;
 
 const navHeight = 0.1;
 
@@ -177,6 +180,8 @@ function openDefaultPanel()
 // Adjusting all sizes and positions according to window size when window is resizes
 function reDim()
 {
+    if (pauseResizing) return;
+
     navDim.width = window.innerWidth;
     navDim.height = window.innerHeight * navHeight;
     document.documentElement.style.setProperty('--navWidth', `${navDim.width}px`);
@@ -404,6 +409,25 @@ function checkUpdate()
 function pushUpdate(newVersion = true)
 {
     navButtons[0].elem.innerText = (newVersion ? 'Refresh to Update' : 'Update Error');
+}
+
+// Check if the user is on a mobile browser
+function isMobileBrowser() 
+{
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+function holdResize()
+{
+    pauseResizing = true;
+}
+function releaseResize()
+{
+    pauseResizing = false;
+}
+
+if (isMobileBrowser()) {
+    onMobile = true;
 }
 
 // Ensuring everything is properly sized to the window after allowing everything to load
