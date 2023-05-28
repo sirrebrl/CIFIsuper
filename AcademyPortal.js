@@ -255,6 +255,7 @@ function CalculateFarmYields(giveTotal = false)
     staticAPbonus *= 0.1 * playerData.diamonds.cards.zion + 1;
     staticAPbonus *= GameDB.academy.getCampaignAP(playerData.academy.campaignsComplete);
     staticAPbonus *= GameDB.fleet.zeus.evoPowers[playerData.fleet.zeus.evo];
+    staticAPbonus *= Math.pow(1.6, playerData.academy.projectLevels[6]);
 
     let staticMatBonus = Math.pow(1.01, playerData.loopMods.beyonders);
     staticMatBonus *= (GameDB.bugs.swarm ? (1.25 * playerData.loopMods.swarm) + (playerData.loopMods.swarm === 0) : Math.pow(1.5111, playerData.loopMods.swarm));
