@@ -601,6 +601,7 @@ function navigatePage(e)
     let pageID = e.target.id;
     portalPanel.portalObj.activePage = pageID;
 
+    if (onMobile) pauseResizing = false;
     reDim();
 }
 
