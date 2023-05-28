@@ -180,7 +180,8 @@ function openDefaultPanel()
 // Adjusting all sizes and positions according to window size when window is resizes
 function reDim()
 {
-    if (onMobile) return;
+    if (pauseResizing) return;
+    if (onMobile) pauseResizing = true;
 
     navDim.width = window.innerWidth;
     navDim.height = window.innerHeight * navHeight;
