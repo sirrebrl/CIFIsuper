@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 10, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 11, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     activePortal: 'academyEffector',
     colorProfile: {
         academyProjects: [
@@ -228,11 +228,14 @@ const blankPlayer =
             0, /* MP Gained *= pow(2, level) */
             0, /* Shards Gained *= pow(2, level) */
             0, /* RP Gained *= pow(2, level) */
-            0 /* AP Gained *= pow(1.25, level) */
+            0, /* AP Gained *= pow(1.25, level) */
+            0, /* All Gen *= pow(3, level), RP *= pow(2.5, level), AP *= pow(1.6, level) */
+            0,
+            0
         ],
         projectGoals:
         [
-            0, 0, 0, 0, 0, 0
+            0, 0, 0, 0, 0, 0, 0, 0, 0
         ],
         gearLevels:
         [
@@ -343,6 +346,16 @@ function UpdatePlayerData()
             ]
         };
         playerData.version = 10;
+    }
+    if (playerData.version < 11)
+    {
+        playerData.academy.projectLevels.push(0);
+        playerData.academy.projectLevels.push(0);
+        playerData.academy.projectLevels.push(0);
+        playerData.academy.projectGoals.push(0);
+        playerData.academy.projectGoals.push(0);
+        playerData.academy.projectGoals.push(0);
+        playerData.version = 11;
     }
     SavePlayerData();
 }
