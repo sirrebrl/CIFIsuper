@@ -110,6 +110,12 @@ function ConstructPortal(height, width, portalObj)
         }
         else { newElem.value = portalPanel.dataLinkage[input.id]; }
 
+        if (onMobile)
+        {
+            newElem.addEventListener('focusin', holdResize);
+            newElem.addEventListener('focusout', releaseResize);
+        }
+
         newElem.addEventListener('change', portalPanel.updateFunction);
 
         portalPanel[input.id] = newElem;
