@@ -1,6 +1,6 @@
 let GameDB =
 {
-    version: 2,
+    version: 2.1,
     bugs:
     {
         destruction: false,
@@ -175,6 +175,33 @@ let GameDB =
                 ],
                 costScalar: 2,
                 costBump: 0.11
+            },
+            {
+                name: 'Fuel Compression',
+                baseCosts:
+                [
+                    1e38, 0, 0, 4e37, 0, 0, 7e36, 0
+                ],
+                costScalar: 3,
+                costBump: 0.13
+            },
+            {
+                name: 'Quantum Weaponry',
+                baseCosts:
+                [
+                    0, 2e45, 0, 0, 5e44, 0, 0, 0
+                ],
+                costScalar: 3.2,
+                costBump: 0.16
+            },
+            {
+                name: 'Robo-Douglett',
+                baseCosts:
+                [
+                    0, 0, 3e53, 0, 0, 6e52, 0, 8e51
+                ],
+                costScalar: 12,
+                costBump: 0.19
             }
         ],
         projectNextLevelCost(projectID, level, costDiv)
