@@ -112,7 +112,7 @@ function ConstructPortal(height, width, portalObj)
 
         if (onMobile)
         {
-            newElem.addEventListener('focusin', holdResize);
+            newElem.addEventListener('focus', holdResize);
             newElem.addEventListener('focusout', releaseResize);
         }
 
