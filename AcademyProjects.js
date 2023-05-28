@@ -1,7 +1,7 @@
 let academyProjectPortal =
 {
-    verticalCells: 45,
-    horizontalCells: 90,
+    verticalCells: 48,
+    horizontalCells: 96,
     headerText: 1.8,
     labelText: 0.9,
     displayText: 1.4,
@@ -57,6 +57,21 @@ let academyProjectPortal =
                     text: 'Warp-Drive Lab',
                     left: 5, top: 28,
                     height: 2, width: 10
+                },
+                {
+                    text: 'Fuel Compression',
+                    left: 1, top: 32,
+                    height: 2, width: 14
+                },
+                {
+                    text: 'Quantum Weaponry',
+                    left: 1, top: 36,
+                    height: 2, width: 14
+                },
+                {
+                    text: 'Robo-Douglett',
+                    left: 1, top: 40,
+                    height: 2, width: 14
                 }
             ],
             inputs: [
@@ -94,6 +109,24 @@ let academyProjectPortal =
                     id: 'warpdrivelevel',
                     type: 'number',
                     left: 16, top: 27.25,
+                    width: 5, height: 2
+                },
+                {
+                    id: 'fuelcompresslevel',
+                    type: 'number',
+                    left: 16, top: 31.25,
+                    width: 5, height: 2
+                },
+                {
+                    id: 'quantumlevel',
+                    type: 'number',
+                    left: 16, top: 35.25,
+                    width: 5, height: 2
+                },
+                {
+                    id: 'douglettlevel',
+                    type: 'number',
+                    left: 16, top: 39.25,
                     width: 5, height: 2
                 },
                 {
@@ -136,8 +169,23 @@ let academyProjectPortal =
                     height: 2, width: 6
                 },
                 {
-                    id: 'totalnew',
+                    id: 'fuelcompressgoal',
                     left: 24, top: 31.75,
+                    height: 2, width: 6
+                },
+                {
+                    id: 'quantumgoal',
+                    left: 24, top: 35.75,
+                    height: 2, width: 6
+                },
+                {
+                    id: 'douglettgoal',
+                    left: 24, top: 39.75,
+                    height: 2, width: 6
+                },
+                {
+                    id: 'totalnew',
+                    left: 24, top: 43.75,
                     height: 2, width: 6
                 }
             ],
@@ -168,7 +216,7 @@ let academyProjectPortal =
     }
 };
 
-let projects = ['storage', 'transfer', 'biomech', 'exo', 'defensive', 'warpdrive'];
+let projects = ['storage', 'transfer', 'biomech', 'exo', 'defensive', 'warpdrive', 'fuelcompress', 'quantum', 'douglett'];
 let [initLeft, initTop] = [29, 7.25];
 let [stepLeft, stepTop] = [2, 4];
 
@@ -225,6 +273,9 @@ academyProjectPortal.pages.default.dataLinkage =
     set exolevel(value) { playerData.academy.projectLevels[3] = value; },
     set defensivelevel(value) { playerData.academy.projectLevels[4] = value; },
     set warpdrivelevel(value) { playerData.academy.projectLevels[5] = value; },
+    set fuelcompresslevel(value) { playerData.academy.projectLevels[6] = value; },
+    set quantumlevel(value) { playerData.academy.projectLevels[7] = value; },
+    set douglettlevel(value) { playerData.academy.projectLevels[8] = value; },
 
     get duration() { return playerData.academy.farmYieldSetting.duration; },
     get runtime() { return playerData.academy.farmYieldSetting.type; },
@@ -233,7 +284,10 @@ academyProjectPortal.pages.default.dataLinkage =
     get biomechlevel() { return playerData.academy.projectLevels[2]; },
     get exolevel() { return playerData.academy.projectLevels[3]; },
     get defensivelevel() { return playerData.academy.projectLevels[4]; },
-    get warpdrivelevel() { return playerData.academy.projectLevels[5]; }
+    get warpdrivelevel() { return playerData.academy.projectLevels[5]; },
+    get fuelcompresslevel() { return playerData.academy.projectLevels[6]; },
+    get quantumlevel() { return playerData.academy.projectLevels[7]; },
+    get douglettlevel() { return playerData.academy.projectLevels[8]; }
 };
 
 academyProjectPortal.pages.default.initFunction = function()
@@ -368,6 +422,9 @@ academyProjectPortal.pages.default.updateFunction = function(e)
                 case 'exo': project = 3; break;
                 case 'defensive': project = 4; break;
                 case 'warpdrive': project = 5; break;
+                case 'fuelcompress': project = 6; break;
+                case 'quantum': project = 7; break;
+                case 'douglett': project = 8; break;
 
             }
             setProjectLevel(project, level, setting);
@@ -387,7 +444,7 @@ function generateRunYield()
     portalPanel.storehouse = new StoreHouse(CalculateFarmYields(true).matYield);
     portalPanel.projectConfigs = [];
     portalPanel.theoreticals = [];
-    for (let projectID = 0; projectID < 6; projectID++)
+    for (let projectID = 0; projectID < projects.length; projectID++)
     {
         portalPanel.projectConfigs.push(new ProjectConfig(projectID, playerData.academy.projectLevels[projectID]));
         let maxLevel = portalPanel.projectConfigs[projectID].MaxLevel(portalPanel.storehouse).newLevels;
@@ -416,7 +473,7 @@ function setProjectLevel(project, level, setting)
     {
         portalPanel.storehouse.spent[i] = 0;
     }
-    for (let i = 0; i < 6; i++)
+    for (let i = 0; i < projects.length; i++)
     {
         let projectCosts = portalPanel.projectConfigs[i].currentCost;
         console.log(`Project: ${projects[i]}`);
@@ -432,7 +489,7 @@ function setProjectLevel(project, level, setting)
 
     portalPanel.totalnew.innerText = `+ ${totalNew}`;
 
-    for (let projectID = 0; projectID < 6; projectID++)
+    for (let projectID = 0; projectID < projects.length; projectID++)
     {
         let currentLevel = portalPanel.projectConfigs[projectID].currentLevel - portalPanel.projectConfigs[projectID].startLevel;
         let maxLevel = portalPanel.projectConfigs[projectID].MaxLevel(portalPanel.storehouse).newLevels + currentLevel;
@@ -457,7 +514,7 @@ function resumeLevels()
     let overspent = false;
     let totalNew = 0;
 
-    for (let i = 0; i < 6; i++)
+    for (let i = 0; i < projects.length; i++)
     {
         portalPanel.projectConfigs[i].currentLevel = prevLevels[i] + portalPanel.projectConfigs[i].startLevel;
         let projectCosts = portalPanel.projectConfigs[i].currentCost;
@@ -479,7 +536,7 @@ function resumeLevels()
 
     if (overspent)
     {
-        for (let i = 0; i < 6; i++)
+        for (let i = 0; i < projects.length; i++)
         {
             portalPanel.projectConfigs[i].currentLevel = portalPanel.projectConfigs[i].startLevel;
             playerData.academy.projectGoals[i] = 0;
@@ -491,7 +548,7 @@ function resumeLevels()
         return;
     }
 
-    for (let projectID = 0; projectID < 6; projectID++)
+    for (let projectID = 0; projectID < projects.length; projectID++)
     {
         let currentLevel = portalPanel.projectConfigs[projectID].currentLevel - portalPanel.projectConfigs[projectID].startLevel;
         let maxLevel = portalPanel.projectConfigs[projectID].MaxLevel(portalPanel.storehouse).newLevels + currentLevel;
