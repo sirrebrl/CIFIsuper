@@ -25,6 +25,7 @@ function CalculateFarmTimes(getRawTime = false)
             missionSpeedBonus *= (playerData.research.perfection[2] > 4) + 1;
             missionSpeedBonus *= (playerData.research.perfection[3] > 4) + 1;
             missionSpeedBonus *= playerData.academy.badges.engineering + 1;
+            missionSpeedBonus *= Math.pow(1.1, playerData.loopMods.productivity);
 
             if (power === 0)
             {
@@ -78,6 +79,7 @@ function GetMaxMissionRate()
     missionSpeedBonus *= (playerData.research.perfection[2] > 4) + 1;
     missionSpeedBonus *= (playerData.research.perfection[3] > 4) + 1;
     missionSpeedBonus *= playerData.academy.badges.engineering + 1;
+    missionSpeedBonus *= Math.pow(1.1, playerData.loopMods.productivity);
 
     let personnel = 
     [
@@ -247,7 +249,7 @@ function CalculateFarmYields(giveTotal = false)
     staticAPbonus *= (0.5 * (playerData.academy.gearSets[4] === 5) + 1);
     staticAPbonus *= Math.pow(1.25, playerData.academy.projectLevels[5]);
     staticAPbonus *= playerData.academy.exchanges.dataCubes * 0.005 * Math.pow(1.25, playerData.loopMods.exodus) * Math.pow(1.5, playerData.loopMods.allExchange) * Math.pow(1.1, Math.floor(playerData.academy.exchanges.dataCubes / 100));
-    staticAPbonus *= Math.pow(1.03, playerData.diamonds.special.ap);
+    staticAPbonus *= Math.pow(1.05, playerData.diamonds.special.ap);
     staticAPbonus *= 0.18 * playerData.diamonds.cards.nora + 1;
     staticAPbonus *= 0.4 * playerData.diamonds.cards.omega + 1;
     staticAPbonus *= 0.15 * playerData.diamonds.cards.rigel + 1;
@@ -256,6 +258,7 @@ function CalculateFarmYields(giveTotal = false)
     staticAPbonus *= GameDB.academy.getCampaignAP(playerData.academy.campaignsComplete);
     staticAPbonus *= GameDB.fleet.zeus.evoPowers[playerData.fleet.zeus.evo];
     staticAPbonus *= Math.pow(1.6, playerData.academy.projectLevels[6]);
+    staticAPbonus *= Math.pow(1.9, playerData.academy.projectLevels[7]);
 
     let staticMatBonus = Math.pow(1.01, playerData.loopMods.beyonders);
     staticMatBonus *= (GameDB.bugs.swarm ? (1.25 * playerData.loopMods.swarm) + (playerData.loopMods.swarm === 0) : Math.pow(1.5111, playerData.loopMods.swarm));
@@ -275,6 +278,10 @@ function CalculateFarmYields(giveTotal = false)
     staticMatBonus *= 4 * (playerData.research.perfection[2] > 1) + 1;
     staticMatBonus *= ((playerData.research.mission[4] > 1 ? 3 : 1) * (playerData.research.mission[4] > 3 ? 4 : 1) * (playerData.research.mission[4] > 5 ? 5 : 1));
     staticMatBonus *= 8 * (playerData.research.perfection[2] > 1) + 1;
+    staticMatBonus *= Math.pow(1.05, playerData.diamonds.special.materials);
+    staticMatBonus *= Math.pow(2.5, playerData.academy.projectLevels[8]);
+    staticMatBonus *= Math.pow(0.0002 * playerData.loopMods.looping + 1, playerData.loopsFilled);
+    staticMatBonus *= Math.pow(0.002 * playerData.loopMods.productivity + 1, playerData.level);
 
     let dynamicMatBonus = Math.pow(0.01 * playerData.loopMods.zeusRankBenefits + 1, playerData.fleet.zeus.rank.current);
 
