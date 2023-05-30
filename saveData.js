@@ -6,7 +6,7 @@ PLAYER DATA CHANGE LOG
 
 const blankPlayer =
 {
-    version: 11, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
+    version: 12, // Super Assistant version, facilitates automatic updating of player data object when new properties are added.
     activePortal: 'academyEffector',
     colorProfile: {
         academyProjects: [
@@ -14,6 +14,7 @@ const blankPlayer =
         ]
     },
     level: 0, // Player level
+    loopsFilled: 0,
     timing:
     {
         tick: 8, // in seconds
@@ -63,6 +64,8 @@ const blankPlayer =
         expansion: 0, // Mission Materials *= pow(1.01, [Expansion])
         exodus: 0, // Exodus Exchange Output *= pow(1.25, level)
         allExchange: 0, // All Exchanges Output *= pow(1.5, level)
+        looping: 0, // Mission Materials *= pow(0.0002 * [Looping] + 1, [Loops Filled]) 
+        productivity: 0, // Mission Speed *= pow(1.1, [Productivity]), Mission Materials *= pow(0.002 * [Productivity] + 1, [Player Level]) 
     },
     shardMilestones:
     [
@@ -267,7 +270,8 @@ const blankPlayer =
     {
         special:
         {
-            ap: 0
+            ap: 0,
+            materials: 0 
         },
         cards:
         {
@@ -356,6 +360,14 @@ function UpdatePlayerData()
         playerData.academy.projectGoals.push(0);
         playerData.academy.projectGoals.push(0);
         playerData.version = 11;
+    }
+    if (playerData.version < 12)
+    {
+        playerData.loopsFilled = 0;
+        playerData.loopMods.looping = 0;
+        playerData.loopMods.productivity = 0;
+        playerData.diamonds.special.materials = 0;
+        playerData.version = 12;
     }
     SavePlayerData();
 }
