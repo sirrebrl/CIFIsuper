@@ -170,6 +170,11 @@ let academyEffectorPortal =
                     height: 2, width: 9
                 },
                 {
+                    text: 'Loops Filled',
+                    left: 18, top: 7,
+                    height: 2, width: 9
+                },
+                {
                     text: 'Zeus Rank Benefits',
                     left: 2, top: 15,
                     height: 2, width: 13
@@ -268,6 +273,26 @@ let academyEffectorPortal =
                     text: 'Rule of Expansion',
                     left: 32, top: 32,
                     height: 2, width: 13
+                },
+                {
+                    text: 'Rule of Productivity',
+                    left: 32, top: 35,
+                    height: 2, width: 15
+                },
+                {
+                    text: '/ 10',
+                    left: 50, top: 35,
+                    height: 2, width: 4
+                },
+                {
+                    text: 'Rule of Looping',
+                    left: 32, top: 38,
+                    height: 2, width: 12
+                },
+                {
+                    text: '/ 10',
+                    left: 47, top: 38,
+                    height: 2, width: 4
                 }
             ],
             inputs: [
@@ -275,6 +300,12 @@ let academyEffectorPortal =
                     id: 'playerlevel',
                     type: 'number',
                     left: 11, top: 6.25,
+                    height: 2, width: 5
+                },
+                {
+                    id: 'loopsfilled',
+                    type: 'number',
+                    left: 28, top: 6.25,
                     height: 2, width: 5
                 },
                 {
@@ -342,6 +373,18 @@ let academyEffectorPortal =
                     type: 'number',
                     left: 46, top: 31.25,
                     height: 2, width: 6
+                },
+                {
+                    id: 'productivity',
+                    type: 'number',
+                    left: 48, top: 34.25,
+                    height: 2, width: 3
+                },
+                {
+                    id: 'looping',
+                    type: 'number',
+                    left: 45, top: 37.25,
+                    height: 2, width: 3
                 }
             ],
             checkboxes: [
@@ -711,28 +754,33 @@ let academyEffectorPortal =
                     height: 2, width: 9
                 },
                 {
-                    text: 'Nora Card',
+                    text: 'Special: Mats',
                     left: 41, top: 14,
                     height: 2, width: 9
                 },
                 {
-                    text: 'Omega Card',
+                    text: 'Nora Card',
                     left: 41, top: 17,
                     height: 2, width: 9
                 },
                 {
-                    text: 'Rigel Card',
+                    text: 'Omega Card',
                     left: 41, top: 20,
                     height: 2, width: 9
                 },
                 {
-                    text: 'Utopia Card',
+                    text: 'Rigel Card',
                     left: 41, top: 23,
                     height: 2, width: 9
                 },
                 {
-                    text: 'Zion Card',
+                    text: 'Utopia Card',
                     left: 41, top: 26,
+                    height: 2, width: 9
+                },
+                {
+                    text: 'Zion Card',
+                    left: 41, top: 29,
                     height: 2, width: 9
                 }
             ],
@@ -833,31 +881,37 @@ let academyEffectorPortal =
                     left: 51, top: 10.25,
                     height: 2, width: 3
                 },
+                {
+                    id: 'specialmats',
+                    type: 'number',
+                    left: 51, top: 13.25,
+                    height: 2, width: 3
+                },
             ],
             checkboxes: [
                 {
                     id: 'nora',
-                    left: 51, top: 13.25,
-                    width: 2, height: 2
-                },
-                {
-                    id: 'omega',
                     left: 51, top: 16.25,
                     width: 2, height: 2
                 },
                 {
-                    id: 'rigel',
+                    id: 'omega',
                     left: 51, top: 19.25,
                     width: 2, height: 2
                 },
                 {
-                    id: 'utopia',
+                    id: 'rigel',
                     left: 51, top: 22.25,
                     width: 2, height: 2
                 },
                 {
-                    id: 'zion',
+                    id: 'utopia',
                     left: 51, top: 25.25,
+                    width: 2, height: 2
+                },
+                {
+                    id: 'zion',
+                    left: 51, top: 28.25,
                     width: 2, height: 2
                 }
             ],
@@ -877,6 +931,7 @@ let academyEffectorPortal =
 academyEffectorPortal.pages.mods.dataLinkage =
 {
     set playerlevel(value) { playerData.level = value; },
+    set loopsfilled(value) { playerData.loopsFilled = value; },
     set zeusrankbenefits(value) { playerData.loopMods.zeusRankBenefits = value; },
     set zeuscrewmotivation(value) { playerData.loopMods.zeusCrewMotivation = value; },
     set combatmod(value) { playerData.loopMods.combatMod = value; },
@@ -888,8 +943,11 @@ academyEffectorPortal.pages.mods.dataLinkage =
     set destruction(value) { playerData.loopMods.destruction = value; },
     set swarm(value) { playerData.loopMods.swarm = value; },
     set expansion(value) { playerData.loopMods.expansion = value; },
+    set productivity(value) { playerData.loopMods.productivity = value; },
+    set looping(value) { playerData.loopMods.looping = value; },
 
     get playerlevel() { return playerData.level; },
+    get loopsfilled() { return playerData.loopsFilled; },
     get zeusrankbenefits() { return playerData.loopMods.zeusRankBenefits; },
     get zeuscrewmotivation() { return playerData.loopMods.zeusCrewMotivation; },
     get combatmod() { return playerData.loopMods.combatMod; },
@@ -900,7 +958,9 @@ academyEffectorPortal.pages.mods.dataLinkage =
     get beyonders() { return playerData.loopMods.beyonders; },
     get destruction() { return playerData.loopMods.destruction; },
     get swarm() { return playerData.loopMods.swarm; },
-    get expansion() { return playerData.loopMods.expansion; }
+    get expansion() { return playerData.loopMods.expansion; },
+    get productivity() { return playerData.loopMods.productivity; },
+    get looping() { return playerData.loopMods.looping; }
 };
 
 academyEffectorPortal.pages.zeus.dataLinkage =
@@ -960,6 +1020,7 @@ academyEffectorPortal.pages.sr.dataLinkage =
     set construction1(value) { playerData.research.construction[0] = value; },
     set construction2(value) { playerData.research.construction[1]= value; },
     set specialap(value) { playerData.diamonds.special.ap = value; },
+    set specialmats(value) { playerData.diamonds.special.materials = value; },
     set nora(value) { playerData.diamonds.cards.nora = value; },
     set omega(value) { playerData.diamonds.cards.omega = value; },
     set rigel(value) { playerData.diamonds.cards.rigel = value; },
@@ -982,6 +1043,7 @@ academyEffectorPortal.pages.sr.dataLinkage =
     get construction1() { return playerData.research.construction[0]; },
     get construction2() { return playerData.research.construction[1]; },
     get specialap() { return playerData.diamonds.special.ap; },
+    get specialmats() { return playerData.diamonds.special.mats; },
     get nora() { return playerData.diamonds.cards.nora; },
     get omega() { return playerData.diamonds.cards.omega; },
     get rigel() { return playerData.diamonds.cards.rigel; },
