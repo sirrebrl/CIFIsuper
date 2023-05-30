@@ -1043,7 +1043,7 @@ academyEffectorPortal.pages.sr.dataLinkage =
     get construction1() { return playerData.research.construction[0]; },
     get construction2() { return playerData.research.construction[1]; },
     get specialap() { return playerData.diamonds.special.ap; },
-    get specialmats() { return playerData.diamonds.special.mats; },
+    get specialmats() { return playerData.diamonds.special.materials; },
     get nora() { return playerData.diamonds.cards.nora; },
     get omega() { return playerData.diamonds.cards.omega; },
     get rigel() { return playerData.diamonds.cards.rigel; },
