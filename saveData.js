@@ -213,7 +213,7 @@ const blankPlayer =
                 }
             ]
         ],
-        farmYieldSetting: { type: 0, duration: 0 },
+        farmYieldSetting: { type: 0, duration: 60 },
         ap: 0,
         stock: [ 0, 0, 0, 0, 0, 0, 0, 0 ],
         exchanges:
